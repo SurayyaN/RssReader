@@ -5,8 +5,19 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfApp1"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525">
-    <Grid>
-        
-    </Grid>
+        Title="MainWindow" Height="552.045" Width="1393.636">
+
+    <StackPanel Margin="0,10,0,0">
+
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="4*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <TextBox x:Name="txtRssUrl" Grid.Column="0" />
+            <Button x:Name="btnLoadRss" Grid.Column="1" Content="Load RSS" />
+        </Grid>
+
+    </StackPanel>
 </Window>
