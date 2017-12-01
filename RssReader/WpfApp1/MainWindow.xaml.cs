@@ -17,6 +17,7 @@ using System.Xml;
 using System.ServiceModel.Syndication;
 using WpfApp1.Models;
 using System.Diagnostics;
+using WpfApp1.Services;
 
 namespace WpfApp1
 {
@@ -25,20 +26,20 @@ namespace WpfApp1
     /// </summary>
     public partial class MainWindow : Window
     {
-        //private ObservableCollection<NewFeeds> _newFeeds;
         private ObservableCollection<RssFeedItem> _rssFeedItems;
 
-        private List<RssFeedSubscription> _rssFeedSubscriptions;
+        private SubscriptionsManager _subscriptionsManager;
 
         public MainWindow()
         {
             InitializeComponent();
 
-            //_newFeeds = new ObservableCollection<NewFeeds>();
-            //lvwArticle.ItemsSource = _newFeeds;
+            _subscriptionsManager = new SubscriptionsManager();
 
             _rssFeedItems = new ObservableCollection<RssFeedItem>();
             lvwArticle.ItemsSource = _rssFeedItems;
+
+            listboxSubscription.ItemsSource = _subscriptionsManager.GetSubscriptions();
         }
 
         private void btnLoadRss_Click(object sender, RoutedEventArgs e)
@@ -53,6 +54,8 @@ namespace WpfApp1
             XmlReader xmlReader = XmlReader.Create(url);
 
             SyndicationFeed feed = SyndicationFeed.Load(xmlReader);
+
+            _subscriptionsManager.AddSubscription(new RssFeedSubscription() {Feed = feed, IsSelected = false});
 
             foreach (SyndicationItem items in feed.Items)
             {

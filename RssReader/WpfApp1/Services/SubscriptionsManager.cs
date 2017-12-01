@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,11 +11,16 @@ namespace WpfApp1.Services
     [Serializable]
     public class SubscriptionsManager
     {
-        private List<RssFeedSubscription> _rssFeedSubscriptionsList;
+        private ObservableCollection<RssFeedSubscription> _rssFeedSubscriptionsList;
 
         public SubscriptionsManager()
         {
-            _rssFeedSubscriptionsList = new List<RssFeedSubscription>();
+            _rssFeedSubscriptionsList = new ObservableCollection<RssFeedSubscription>();
+        }
+
+        public ObservableCollection<RssFeedSubscription> GetSubscriptions()
+        {
+            return _rssFeedSubscriptionsList;
         }
 
         public void AddSubscription(RssFeedSubscription rssFeed)
