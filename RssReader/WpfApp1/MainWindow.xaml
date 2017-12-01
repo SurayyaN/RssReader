@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfApp1"
         mc:Ignorable="d"
-        Title="MainWindow" Height="552.045" Width="1247.272">
+        Title="MainWindow" Height="552.045" Width="1200">
 
     <StackPanel Margin="10,10,10,10">
 
@@ -20,13 +20,47 @@
         </Grid>
 
         <TextBlock x:Name="txt" Margin="0, 10, 0, 0" Text="Latest Articles" FontWeight="Bold" />
-        <ListView x:Name="lvwArticle" Margin="0, 10, 0, 0" Height="470" >
+        <ListView x:Name="lvwArticle" Margin="0, 10, 0, 0" >
             <ListView.View>
                 <GridView>
-                    <GridViewColumn Header="Article" DisplayMemberBinding="{Binding Article}"/> 
+                    <GridViewColumn Header="Website" Width="100">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock>
+                                    <Hyperlink RequestNavigate="Hyperlink_RequestNavigate" NavigateUri="{Binding WebsiteLink}">
+                                        <TextBlock Text="{Binding Website}" />
+                                    </Hyperlink>
+                                </TextBlock>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Header="Website" Width="100">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock>
+                                    <Hyperlink RequestNavigate="Hyperlink_RequestNavigate" NavigateUri="{Binding ArticleLink}">
+                                        <TextBlock Text="{Binding Article}" />
+                                    </Hyperlink>
+                                </TextBlock>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Header="Published Date" Width="100" DisplayMemberBinding="{Binding PublishedDateTime}"/>
                 </GridView>
             </ListView.View>
         </ListView>
 
     </StackPanel>
 </Window>
+    
+    
+    
+
+
+
+
+
+<!--<GridViewColumn Header="Website" Width="100" DisplayMemberBinding="{Binding Website}"/>
+<GridViewColumn Header="Article" Width="300" DisplayMemberBinding="{Binding Article}"/>
+<GridViewColumn Header="Description" Width="600"  DisplayMemberBinding="{Binding Description}"/>
+<GridViewColumn Header="Published Date" Width="100" DisplayMemberBinding="{Binding PublishedDateTime}"/>-->

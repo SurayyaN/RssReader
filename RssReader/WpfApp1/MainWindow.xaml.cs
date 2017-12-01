@@ -15,7 +15,8 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Xml;
 using System.ServiceModel.Syndication;
-
+using WpfApp1.Models;
+using System.Diagnostics;
 
 namespace WpfApp1
 {
@@ -24,14 +25,18 @@ namespace WpfApp1
     /// </summary>
     public partial class MainWindow : Window
     {
-        private ObservableCollection<NewFeeds> _newFeeds;
+        //private ObservableCollection<NewFeeds> _newFeeds;
+        private ObservableCollection<RssFeedItem> _rssFeedItems;
 
         public MainWindow()
         {
             InitializeComponent();
 
-            _newFeeds = new ObservableCollection<NewFeeds>();
-            lvwArticle.ItemsSource = _newFeeds;
+            //_newFeeds = new ObservableCollection<NewFeeds>();
+            //lvwArticle.ItemsSource = _newFeeds;
+
+            _rssFeedItems = new ObservableCollection<RssFeedItem>();
+            lvwArticle.ItemsSource = _rssFeedItems;
         }
 
         private void btnLoadRss_Click(object sender, RoutedEventArgs e)
@@ -47,19 +52,21 @@ namespace WpfApp1
 
             SyndicationFeed feed = SyndicationFeed.Load(xmlReader);
 
-            foreach (SyndicationItem items in feed.Items.Take(5))
+            foreach (SyndicationItem items in feed.Items)
             {
-                //ListViewItem listItem = new ListViewItem();
-                //listItem.DataContext = items.Title.Text;
-                //this.lvwArticle.Items.Add(listItem);
-
-                _newFeeds.Add(new NewFeeds() { Article = items.Title.Text});
+                _rssFeedItems.Add(new RssFeedItem() { Website = feed.Title.Text, WebsiteLink = feed.Links[0].Uri , Article = items.Title.Text, ArticleLink = items.Links[0].Uri, Description = items.Summary.Text, PublishedDateTime = items.PublishDate.ToString()});
             }
+        }
+
+        private void Hyperlink_RequestNavigate(object sender, RequestNavigateEventArgs e)
+        {
+            Process.Start(new ProcessStartInfo(e.Uri.AbsoluteUri));
+            e.Handled = true;
         }
     }
 
-    public class NewFeeds
-    {
-        public string Article { get; set; }
-    }
+    //public class NewFeeds
+    //{
+    //    public string Article { get; set; }
+    //}
 }
