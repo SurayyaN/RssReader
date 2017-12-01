@@ -13,10 +13,10 @@
                 <Grid Background="#FFE5E5E5">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="1*" />
-                        <RowDefinition Height="*" />
+                        <RowDefinition Height="400" />
                     </Grid.RowDefinitions>
                     <Button x:Name="btnRefreshFeed" Content="Refresh Feed" Grid.Row="0" Margin="10, 10, 10, 0" Click="btnRefreshFeed_Click"/>
-                    <ListView x:Name="lvwArticle" Margin="10" Grid.Row="1">
+                    <ListView x:Name="lvwArticle" Margin="10" Grid.Row="1" ScrollViewer.VerticalScrollBarVisibility="Visible" ScrollViewer.CanContentScroll="False">
                         <ListView.View>
                             <GridView>
                                 <GridViewColumn Header="Website" Width="200">

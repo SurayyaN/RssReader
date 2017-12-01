@@ -55,17 +55,16 @@ namespace WpfApp1
 
         private void btnRefreshFeed_Click(object sender, RoutedEventArgs e)
         {
+            _rssFeedItems.Clear();
+
             foreach (RssFeedSubscription subscription in _subscriptionsManager.GetSubscriptions())
             {
                 LoadRss(subscription.Feed);
             }
         }
 
-        //private void LoadRss(string url)
         private void LoadRss(SyndicationFeed feed)
         {
-            _rssFeedItems.Clear();
-
             foreach (SyndicationItem items in feed.Items)
             {
                 _rssFeedItems.Add(new RssFeedItem()
