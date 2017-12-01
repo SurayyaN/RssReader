@@ -16,7 +16,7 @@ namespace WpfApp1.Models
 
         public Uri ArticleLink { get; set; }
 
-        public string Description { get; set; }
+        //public string Description { get; set; }
 
         public string PublishedDateTime { get; set; }
     }

@@ -8,53 +8,69 @@
         Title="MainWindow" Height="552.045" Width="1200">
 
     <StackPanel Margin="10,10,10,10">
+        <TabControl x:Name="tabRssFeed" Margin="10">
+            <TabItem Header="New Feeds">
+                <Grid Background="#FFE5E5E5">
+                    <ListView x:Name="lvwArticle" Margin="10" >
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Header="Website" Width="200">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBlock><Hyperlink RequestNavigate="Hyperlink_RequestNavigate" NavigateUri="{Binding WebsiteLink}"><InlineUIContainer>
+                                            <TextBlock Text="{Binding Website}" />
+                                        </InlineUIContainer></Hyperlink></TextBlock>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn Header="Article" Width="800">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBlock><Hyperlink RequestNavigate="Hyperlink_RequestNavigate" NavigateUri="{Binding ArticleLink}"><InlineUIContainer>
+                                            <TextBlock Text="{Binding Article}" />
+                                        </InlineUIContainer></Hyperlink></TextBlock>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn Header="Published Date" Width="100" DisplayMemberBinding="{Binding PublishedDateTime}"/>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Subscriptions">
+                <Grid Background="#FFE5E5E5">
+                    <Grid Margin="10">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="4*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="1*" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+                        <TextBox x:Name="txtRssUrl" Grid.Column="0"  Grid.Row="0" HorizontalAlignment="Left" Width="888" />
+                        <Button x:Name="btnLoadRss" Margin="10, 0, 0, 0" Grid.Column="1" Grid.Row="0" Content="Load RSS " Click="btnLoadRss_Click" />
+                        <ListBox x:Name="listboxSubscription" Margin="0, 10, 10, 0" Grid.Column="0" Grid.Row="1" >
+                            <ListBox.ItemTemplate>
+                                <DataTemplate>
+                                    <CheckBox >
+                                        
+                                    </CheckBox>
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                        </ListBox>
+                    </Grid>
+                </Grid>
 
-        <Grid>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="4*" />
-                <ColumnDefinition Width="*" />
-            </Grid.ColumnDefinitions>
-
-            <TextBox x:Name="txtRssUrl" Margin="0, 0, 10, 0" Grid.Column="0" Text="RSS source URL" />
-            <Button x:Name="btnLoadRss" Margin="10, 0, 0, 0" Grid.Column="1" Content="Load RSS " Click="btnLoadRss_Click" />
-        </Grid>
-
-        <TextBlock x:Name="txt" Margin="0, 10, 0, 0" Text="Latest Articles" FontWeight="Bold" />
-        <ListView x:Name="lvwArticle" Margin="0, 10, 0, 0" >
-            <ListView.View>
-                <GridView>
-                    <GridViewColumn Header="Website" Width="100">
-                        <GridViewColumn.CellTemplate>
-                            <DataTemplate>
-                                <TextBlock>
-                                    <Hyperlink RequestNavigate="Hyperlink_RequestNavigate" NavigateUri="{Binding WebsiteLink}">
-                                        <TextBlock Text="{Binding Website}" />
-                                    </Hyperlink>
-                                </TextBlock>
-                            </DataTemplate>
-                        </GridViewColumn.CellTemplate>
-                    </GridViewColumn>
-                    <GridViewColumn Header="Website" Width="100">
-                        <GridViewColumn.CellTemplate>
-                            <DataTemplate>
-                                <TextBlock>
-                                    <Hyperlink RequestNavigate="Hyperlink_RequestNavigate" NavigateUri="{Binding ArticleLink}">
-                                        <TextBlock Text="{Binding Article}" />
-                                    </Hyperlink>
-                                </TextBlock>
-                            </DataTemplate>
-                        </GridViewColumn.CellTemplate>
-                    </GridViewColumn>
-                    <GridViewColumn Header="Published Date" Width="100" DisplayMemberBinding="{Binding PublishedDateTime}"/>
-                </GridView>
-            </ListView.View>
-        </ListView>
+            </TabItem>
+        </TabControl>
 
     </StackPanel>
 </Window>
-    
-    
-    
+
+
+
 
 
 
