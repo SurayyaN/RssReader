@@ -46,11 +46,13 @@ namespace WpfApp1
         {
             string url = txtRssUrl.Text;
 
-            XmlReader xmlReader = XmlReader.Create(url);
-            SyndicationFeed feed = SyndicationFeed.Load(xmlReader);
-            _subscriptionsManager.AddSubscription(new RssFeedSubscription() { Feed = feed, IsSelected = false });
+            SyndicationFeed feed = RssReadingUtility.LoadFeed(url);
 
-            btnRefreshFeed_Click(sender, e);
+            if (feed != null)
+            {
+                _subscriptionsManager.AddSubscription(new RssFeedSubscription() { Feed = feed, IsSelected = false });
+                btnRefreshFeed_Click(sender, e);
+            }
         }
 
         private void btnRefreshFeed_Click(object sender, RoutedEventArgs e)
@@ -59,24 +61,7 @@ namespace WpfApp1
 
             foreach (RssFeedSubscription subscription in _subscriptionsManager.GetSubscriptions())
             {
-                LoadRss(subscription.Feed);
-            }
-        }
-
-        private void LoadRss(SyndicationFeed feed)
-        {
-            foreach (SyndicationItem items in feed.Items)
-            {
-                _rssFeedItems.Add(new RssFeedItem()
-                {
-                    Website = feed.Title.Text,
-                    //WebsiteLink = feed.Links.FirstOrDefault(c => c.RelationshipType == "Alternate").Uri,
-                    WebsiteLink = feed.Links[0].Uri,
-                    Article = items.Title.Text,
-                    ArticleLink = items.Links[0].Uri,
-                    //Description = items.Summary.Text,
-                    PublishedDateTime = items.PublishDate.Date.ToShortDateString()
-                });
+                RssReadingUtility.PrintFeed(subscription.Feed, _rssFeedItems);
             }
         }
 

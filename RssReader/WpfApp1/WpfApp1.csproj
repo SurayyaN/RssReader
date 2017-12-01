@@ -58,6 +58,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Services\RssReadingUtility.cs" />
     <Compile Include="Services\SaveUtility.cs" />
     <Compile Include="Services\SubscriptionsManager.cs" />
     <Page Include="MainWindow.xaml">

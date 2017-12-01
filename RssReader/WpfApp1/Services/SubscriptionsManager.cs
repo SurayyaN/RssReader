@@ -5,6 +5,7 @@ using System.Linq;
 using System.ServiceModel.Syndication;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Xml;
 using Newtonsoft.Json.Schema;
 using WpfApp1.Models;
@@ -24,26 +25,13 @@ namespace WpfApp1.Services
             {
                 foreach (string uri in SaveUtility.LoadFromFile())
                 {
-                    Uri uriResult;
-                    bool result = Uri.TryCreate(uri, UriKind.Absolute, out uriResult)
-                                  && (uriResult.Scheme == Uri.UriSchemeHttp || uriResult.Scheme == Uri.UriSchemeHttps);
-                    if (!result)
-                        continue;
+                    SyndicationFeed feed = RssReadingUtility.LoadFeed(uri);
 
-                    //XmlReader xmlReader = XmlReader.Create(uri);
-                    //SyndicationFeed feed = SyndicationFeed.Load(xmlReader);
-
-                    XmlReaderSettings settings = new XmlReaderSettings();
-                    settings.DtdProcessing = DtdProcessing.Parse;
-                    //settings.ValidationType = ValidationType.DTD;
-
-                    using (XmlReader reader = XmlReader.Create(uri, settings))
+                    if (feed != null)
                     {
-                        SyndicationFeed feed = SyndicationFeed.Load(reader);
-                        AddSubscription(new RssFeedSubscription() {Feed = feed, IsSelected = false});
+                        AddSubscription(new RssFeedSubscription() { Feed = feed, IsSelected = false });
                     }
                 }
-                //_rssFeedSubscriptionsList = SaveUtility.LoadFromFile();
             }
         }
 
@@ -57,10 +45,14 @@ namespace WpfApp1.Services
             if (_rssFeedSubscriptionsList.Count() != 0)
             {
                 bool exist = _rssFeedSubscriptionsList.Any(c => c.Feed.Title.Text == rssFeed.Feed.Title.Text);
-                if (!exist)
+
+                if (exist)
                 {
-                    _rssFeedSubscriptionsList.Add(rssFeed);
+                    MessageBox.Show("Subscription already exists", "Alert", MessageBoxButton.OK, MessageBoxImage.Information);
+                    
                 }
+
+                _rssFeedSubscriptionsList.Add(rssFeed);
             }
 
             else
