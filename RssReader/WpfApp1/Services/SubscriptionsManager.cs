@@ -25,7 +25,11 @@ namespace WpfApp1.Services
 
         public void AddSubscription(RssFeedSubscription rssFeed)
         {
-            _rssFeedSubscriptionsList.Add(rssFeed);
+            bool exist = _rssFeedSubscriptionsList.Any(c => c.Feed.Title.Text == rssFeed.Feed.Title.Text);
+            if (!exist)
+            {
+                _rssFeedSubscriptionsList.Add(rssFeed);
+            }
         }
 
         public void RemoveSubscription(RssFeedSubscription rssFeed)

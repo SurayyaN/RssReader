@@ -11,7 +11,12 @@
         <TabControl x:Name="tabRssFeed" Margin="10">
             <TabItem Header="New Feeds">
                 <Grid Background="#FFE5E5E5">
-                    <ListView x:Name="lvwArticle" Margin="10" >
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="1*" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <Button x:Name="btnRefreshFeed" Content="Refresh Feed" Grid.Row="0" Margin="10, 10, 10, 0" Click="btnRefreshFeed_Click"/>
+                    <ListView x:Name="lvwArticle" Margin="10" Grid.Row="1">
                         <ListView.View>
                             <GridView>
                                 <GridViewColumn Header="Website" Width="200">
@@ -50,7 +55,7 @@
                             <RowDefinition Height="*" />
                         </Grid.RowDefinitions>
                         <TextBox x:Name="txtRssUrl" Grid.Column="0"  Grid.Row="0" HorizontalAlignment="Left" Width="888" />
-                        <Button x:Name="btnLoadRss" Margin="10, 0, 0, 0" Grid.Column="1" Grid.Row="0" Content="Load RSS " Click="btnLoadRss_Click" />
+                        <Button x:Name="btnAddNew" Margin="10, 0, 0, 0" Grid.Column="1" Grid.Row="0" Content="Add New Rss" Click="btnAddNewRss_Click" />
                         <ListBox x:Name="listboxSubscription" Margin="0, 10, 10, 0" Grid.Column="0" Grid.Row="1" >
                             <ListBox.ItemTemplate>
                                 <DataTemplate>

@@ -42,20 +42,29 @@ namespace WpfApp1
             listboxSubscription.ItemsSource = _subscriptionsManager.GetSubscriptions();
         }
 
-        private void btnLoadRss_Click(object sender, RoutedEventArgs e)
+        private void btnAddNewRss_Click(object sender, RoutedEventArgs e)
         {
             string url = txtRssUrl.Text;
 
-            LoadRss(url);
+            XmlReader xmlReader = XmlReader.Create(url);
+            SyndicationFeed feed = SyndicationFeed.Load(xmlReader);
+            _subscriptionsManager.AddSubscription(new RssFeedSubscription() { Feed = feed, IsSelected = false });
+
+            btnRefreshFeed_Click(sender, e);
         }
 
-        private void LoadRss(string url)
+        private void btnRefreshFeed_Click(object sender, RoutedEventArgs e)
         {
-            XmlReader xmlReader = XmlReader.Create(url);
+            foreach (RssFeedSubscription subscription in _subscriptionsManager.GetSubscriptions())
+            {
+                LoadRss(subscription.Feed);
+            }
+        }
 
-            SyndicationFeed feed = SyndicationFeed.Load(xmlReader);
-
-            _subscriptionsManager.AddSubscription(new RssFeedSubscription() {Feed = feed, IsSelected = false});
+        //private void LoadRss(string url)
+        private void LoadRss(SyndicationFeed feed)
+        {
+            _rssFeedItems.Clear();
 
             foreach (SyndicationItem items in feed.Items)
             {
