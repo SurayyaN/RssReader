@@ -37,11 +37,8 @@ namespace WpfApp1.Services
                 rssFeedItems.Add(new RssFeedItem()
                 {
                     Website = feed.Title.Text,
-                    //WebsiteLink = feed.Links.FirstOrDefault(c => c.RelationshipType == "Alternate").Uri,
-                    WebsiteLink = feed.Links[0].Uri,
                     Article = items.Title.Text,
                     ArticleLink = items.Links[0].Uri,
-                    //Description = items.Summary.Text,
                     PublishedDateTime = items.PublishDate.Date.ToShortDateString()
                 });
             }

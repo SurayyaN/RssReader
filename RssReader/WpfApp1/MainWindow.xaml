@@ -19,15 +19,7 @@
                     <ListView x:Name="lvwArticle" Margin="10" Grid.Row="1" ScrollViewer.VerticalScrollBarVisibility="Visible" ScrollViewer.CanContentScroll="False">
                         <ListView.View>
                             <GridView>
-                                <GridViewColumn Header="Website" Width="200">
-                                    <GridViewColumn.CellTemplate>
-                                        <DataTemplate>
-                                            <TextBlock><Hyperlink RequestNavigate="Hyperlink_RequestNavigate" NavigateUri="{Binding WebsiteLink}"><InlineUIContainer>
-                                            <TextBlock Text="{Binding Website}" />
-                                        </InlineUIContainer></Hyperlink></TextBlock>
-                                        </DataTemplate>
-                                    </GridViewColumn.CellTemplate>
-                                </GridViewColumn>
+                                <GridViewColumn Header="Website" Width="200" DisplayMemberBinding="{Binding WebSite}" />
                                 <GridViewColumn Header="Article" Width="800">
                                     <GridViewColumn.CellTemplate>
                                         <DataTemplate>
@@ -71,15 +63,3 @@
 
     </StackPanel>
 </Window>
-
-
-
-
-
-
-
-
-<!--<GridViewColumn Header="Website" Width="100" DisplayMemberBinding="{Binding Website}"/>
-<GridViewColumn Header="Article" Width="300" DisplayMemberBinding="{Binding Article}"/>
-<GridViewColumn Header="Description" Width="600"  DisplayMemberBinding="{Binding Description}"/>
-<GridViewColumn Header="Published Date" Width="100" DisplayMemberBinding="{Binding PublishedDateTime}"/>-->

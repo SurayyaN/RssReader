@@ -76,7 +76,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Models\RssFeedItem.cs" />
-    <Compile Include="Models\RssFeed.cs" />
     <Compile Include="Models\RssFeedSubscription.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
