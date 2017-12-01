@@ -28,7 +28,7 @@ namespace WpfApp1
         //private ObservableCollection<NewFeeds> _newFeeds;
         private ObservableCollection<RssFeedItem> _rssFeedItems;
 
-        private 
+        private List<RssFeedSubscription> _rssFeedSubscriptions;
 
         public MainWindow()
         {
