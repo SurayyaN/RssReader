@@ -35,14 +35,13 @@ namespace WpfApp1
             InitializeComponent();
 
             _subscriptionsManager = new SubscriptionsManager();
+            ListboxSubscription.ItemsSource = _subscriptionsManager.GetSubscriptions();
 
             _rssFeedItems = new ObservableCollection<RssFeedItem>();
             LvwArticle.ItemsSource = _rssFeedItems;
-
-            ListboxSubscription.ItemsSource = _subscriptionsManager.GetSubscriptions();
         }
 
-        private void btnAddNewRss_Click(object sender, RoutedEventArgs e)
+        private void btnAddNewFeed_Click(object sender, RoutedEventArgs e)
         {
             string url = TxtRssUrl.Text;
 
@@ -63,12 +62,6 @@ namespace WpfApp1
             {
                 RssReadingUtility.PrintFeed(subscription.Feed, _rssFeedItems);
             }
-        }
-
-        private void Hyperlink_RequestNavigate(object sender, RequestNavigateEventArgs e)
-        {
-            Process.Start(new ProcessStartInfo(e.Uri.AbsoluteUri));
-            e.Handled = true;
         }
 
         private void CbAllItems_Checked(object sender, RoutedEventArgs e)
@@ -101,6 +94,29 @@ namespace WpfApp1
                     }
                 }
             }
+        }
+
+        private void BtnDeleteFeed_Click(object sender, RoutedEventArgs e)
+        {
+            List<RssFeedSubscription> feedToBeDeleted = new List<RssFeedSubscription>();
+
+            foreach (RssFeedSubscription item in _subscriptionsManager.GetSubscriptions().Where(c => c.IsChecked))
+            {
+                feedToBeDeleted.Add(item);
+            }
+
+            foreach (RssFeedSubscription feed in feedToBeDeleted)
+            {
+                _subscriptionsManager.RemoveSubscription(feed);
+            }
+
+            btnRefreshFeed_Click(sender, e);
+        }
+
+        private void Hyperlink_RequestNavigate(object sender, RequestNavigateEventArgs e)
+        {
+            Process.Start(new ProcessStartInfo(e.Uri.AbsoluteUri));
+            e.Handled = true;
         }
     }
 }

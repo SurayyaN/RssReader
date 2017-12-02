@@ -19,7 +19,7 @@
                     <ListView x:Name="LvwArticle" Margin="10" Grid.Row="1" ScrollViewer.VerticalScrollBarVisibility="Visible" ScrollViewer.CanContentScroll="False">
                         <ListView.View>
                             <GridView>
-                                <GridViewColumn Header="Website" Width="200" DisplayMemberBinding="{Binding WebSite}" />
+                                <GridViewColumn Header="Website" Width="200" DisplayMemberBinding="{Binding Website}" />
                                 <GridViewColumn Header="Article" Width="800">
                                     <GridViewColumn.CellTemplate>
                                         <DataTemplate>
@@ -48,9 +48,9 @@
                             <RowDefinition Height="*" />
                         </Grid.RowDefinitions>
                         <TextBox x:Name="TxtRssUrl"  Grid.Row="0" Grid.Column="0" HorizontalAlignment="Left" Width="888" />
-                        <Button x:Name="BtnAddNew" Margin="10, 0, 0, 0" Grid.Row="0" Grid.Column="1" Content="Add New Rss" Click="btnAddNewRss_Click" />
-                        <CheckBox x:Name="CbAllItems" Grid.Row="1" Grid.Column="0" IsChecked="False" Checked="CbAllItems_Checked" Unchecked="CbAllItems_UnChecked ">Select / Unselect All</CheckBox>
-                        <ListBox x:Name="ListboxSubscription" Margin="0, 10, 0, 0" Grid.Row="2" Grid.Column="0"  Height="400">
+                        <Button x:Name="BtnAddNew" Margin="10, 0, 0, 0" Grid.Row="0" Grid.Column="1" Content="Add New Rss" Click="btnAddNewFeed_Click" />
+                        <CheckBox x:Name="CbAllItems" Margin="0, 10, 0, 0" Grid.Row="1" Grid.Column="0" IsChecked="False" Checked="CbAllItems_Checked" Unchecked="CbAllItems_UnChecked ">Select / Unselect All</CheckBox>
+                        <ListBox x:Name="ListboxSubscription" Margin="0, 10, 0, 0" Grid.Row="2" Grid.Column="0"  Height="350">
                             <ListBox.ItemTemplate>
                                 <DataTemplate>
                                     <Grid>
@@ -59,50 +59,7 @@
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
                         </ListBox>
-                        
-                        <!--<ListBox Margin="0, 10, 0, 0" Grid.Column="0" Grid.Row="1" Height="400">
-                            <ListBox.ItemTemplate>
-                                <DataTemplate>
-                                    <Grid>
-                                        <Grid.RowDefinitions>
-                                            <RowDefinition Height="1*" />
-                                            <RowDefinition Height="*" />
-                                        </Grid.RowDefinitions>
-                                        <CheckBox x:Name="cbAllItems" Grid.Row="0" Margin="0, 5, 0, 5" IsChecked="False" Checked="CbAllItems_Checked" Content="Select / Unselect All" />
-                                        <ListBox x:Name="listboxSubscription" Grid.Row="1" >
-                                            <CheckBox IsChecked="{Binding IsChecked}" Content="{Binding Feed.Title.Text}" />
-                                        </ListBox>
-                                    </Grid>
-                                </DataTemplate>
-                            </ListBox.ItemTemplate>
-                        </ListBox>--><!--
-                        <ListView Grid.Column="0" Grid.Row="1">
-                            <ListViewItem>
-                                <ListBox>
-                                    <ListBox.ItemTemplate>
-                                        <DataTemplate>
-                                            <Grid>
-                                                <CheckBox x:Name="CbAllItems" Margin="0, 5, 0, 5" IsChecked="False" Checked="CbAllItems_Checked" Content="Select / Unselect All" />
-                                            </Grid>
-                                        </DataTemplate>
-                                    </ListBox.ItemTemplate>
-                                </ListBox>
-                                        --><!--<DataTemplate>
-                                    <CheckBox x:Name="CbAllItems" Margin="0, 5, 0, 5" IsChecked="False" Checked="CbAllItems_Checked" Content="Select / Unselect All" />
-                                </DataTemplate>--><!--
-                            </ListViewItem>
-                            <ListViewItem>
-                                <ListBox x:Name="ListboxSubscription" >
-                                    <ListBox.ItemTemplate>
-                                        <DataTemplate>
-                                            <Grid>
-                                                <CheckBox IsChecked="{Binding IsChecked}" Content="{Binding Feed.Title.Text}" />
-                                            </Grid>
-                                        </DataTemplate>
-                                    </ListBox.ItemTemplate>
-                                </ListBox>
-                            </ListViewItem>
-                        </ListView>-->
+                        <Button x:Name="BtnDeleteSubscription" Margin="10, 10, 10, 0" Grid.Row="2" Grid.Column="1" Content="Delete Feed" VerticalAlignment="Bottom" Click="BtnDeleteFeed_Click"/>
                     </Grid>
                 </Grid>
             </TabItem>

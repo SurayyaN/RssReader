@@ -11,14 +11,10 @@ namespace WpfApp1.Models
     [Serializable]
     public class RssFeedSubscription : INotifyPropertyChanged
     {
-        //public SyndicationFeed Feed { get; set; }
-
-        //public Boolean IsSelected { get; set; }
-
         public event PropertyChangedEventHandler PropertyChanged;
 
         private SyndicationFeed _feed;
-        private Boolean _IsChecked;
+        private Boolean _isChecked;
 
         public RssFeedSubscription()
         { }
@@ -26,7 +22,7 @@ namespace WpfApp1.Models
         public RssFeedSubscription(SyndicationFeed feed, Boolean isChecked = false)
         {
             _feed = feed;
-            _IsChecked = isChecked;
+            _isChecked = isChecked;
         }
 
         public SyndicationFeed Feed
@@ -41,10 +37,10 @@ namespace WpfApp1.Models
 
         public Boolean IsChecked
         {
-            get { return _IsChecked; }
+            get { return _isChecked; }
             set
             {
-                _IsChecked = value;
+                _isChecked = value;
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("IsChecked"));
             }
         }
