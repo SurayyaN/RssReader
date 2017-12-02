@@ -37,20 +37,20 @@ namespace WpfApp1
             _subscriptionsManager = new SubscriptionsManager();
 
             _rssFeedItems = new ObservableCollection<RssFeedItem>();
-            lvwArticle.ItemsSource = _rssFeedItems;
+            LvwArticle.ItemsSource = _rssFeedItems;
 
-            listboxSubscription.ItemsSource = _subscriptionsManager.GetSubscriptions();
+            ListboxSubscription.ItemsSource = _subscriptionsManager.GetSubscriptions();
         }
 
         private void btnAddNewRss_Click(object sender, RoutedEventArgs e)
         {
-            string url = txtRssUrl.Text;
+            string url = TxtRssUrl.Text;
 
             SyndicationFeed feed = RssReadingUtility.LoadFeed(url);
 
             if (feed != null)
             {
-                _subscriptionsManager.AddSubscription(new RssFeedSubscription() { Feed = feed, IsSelected = false });
+                _subscriptionsManager.AddSubscription(new RssFeedSubscription() { Feed = feed});
                 btnRefreshFeed_Click(sender, e);
             }
         }
@@ -69,6 +69,38 @@ namespace WpfApp1
         {
             Process.Start(new ProcessStartInfo(e.Uri.AbsoluteUri));
             e.Handled = true;
+        }
+
+        private void CbAllItems_Checked(object sender, RoutedEventArgs e)
+        {
+            CheckBox checkbox = sender as CheckBox;
+
+            if (checkbox.Name == "CbAllItems")
+            {
+                if (checkbox.IsChecked == true)
+                {
+                    foreach (RssFeedSubscription subscription in _subscriptionsManager.GetSubscriptions())
+                    {
+                        subscription.IsChecked = true;
+                    }
+                }
+            }
+        }
+
+        private void CbAllItems_UnChecked(object sender, RoutedEventArgs e)
+        {
+            CheckBox checkbox = sender as CheckBox;
+
+            if (checkbox.Name == "CbAllItems")
+            {
+                if (checkbox.IsChecked == false)
+                {
+                    foreach (RssFeedSubscription subscription in _subscriptionsManager.GetSubscriptions())
+                    {
+                        subscription.IsChecked = false;
+                    }
+                }
+            }
         }
     }
 }

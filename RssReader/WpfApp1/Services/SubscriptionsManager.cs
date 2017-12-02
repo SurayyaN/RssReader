@@ -29,7 +29,7 @@ namespace WpfApp1.Services
 
                     if (feed != null)
                     {
-                        AddSubscription(new RssFeedSubscription() { Feed = feed, IsSelected = false });
+                        AddSubscription(new RssFeedSubscription() { Feed = feed});
                     }
                 }
             }
@@ -49,7 +49,6 @@ namespace WpfApp1.Services
                 if (exist)
                 {
                     MessageBox.Show("Subscription already exists", "Alert", MessageBoxButton.OK, MessageBoxImage.Information);
-                    
                 }
 
                 _rssFeedSubscriptionsList.Add(rssFeed);
