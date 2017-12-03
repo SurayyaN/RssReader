@@ -26,13 +26,13 @@ namespace WpfApp1.Services
             return feeds;
         }
 
-        public static void SaveToFile(string url)
-        {
-                using (StreamWriter streamwriter = File.AppendText(@"c:\RSS Feeds.json"))
-                {
-                    streamwriter.WriteLine(url);
-                }
-        }
+        //public static void SaveToFile(string url)
+        //{
+        //        using (StreamWriter streamwriter = File.AppendText(@"c:\RSS Feeds.json"))
+        //        {
+        //            streamwriter.WriteLine(url);
+        //        }
+        //}
 
         public static void SaveToFile(ObservableCollection<RssFeed> rssFeedList)
         {

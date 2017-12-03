@@ -58,6 +58,8 @@ namespace WpfApp1.Services
             {
                 _rssFeedList.Add(rssFeed);
             }
+
+            SaveUtility.SaveToFile(_rssFeedList);
         }
 
         public void RemoveFeed(RssFeed rssFeed)

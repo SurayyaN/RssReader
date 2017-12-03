@@ -22,7 +22,7 @@ namespace WpfApp1.Services
                 XmlReader xmlReader = XmlReader.Create(url, settings);
                 SyndicationFeed feed = SyndicationFeed.Load(xmlReader);
 
-                SaveUtility.SaveToFile(url);
+                //SaveUtility.SaveToFile(url);
 
                 return feed;
             }

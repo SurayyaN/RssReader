@@ -35,10 +35,10 @@ namespace WpfApp1
             InitializeComponent();
 
             _feedManager = new FeedManager();
-            ListboxSubscription.ItemsSource = _feedManager.GetFeeds();
+            ListboxFeeds.ItemsSource = _feedManager.GetFeeds();
 
             _rssFeedItems = new ObservableCollection<RssFeedItem>();
-            LvwArticle.ItemsSource = _rssFeedItems;
+            LvwFeedItems.ItemsSource = _rssFeedItems;
         }
 
         private void btnAddNewFeed_Click(object sender, RoutedEventArgs e)
