@@ -66,34 +66,34 @@ namespace WpfApp1
 
         private void CbAllItems_Checked(object sender, RoutedEventArgs e)
         {
-            CheckBox checkbox = sender as CheckBox;
+            //CheckBox checkbox = sender as CheckBox;
 
-            if (checkbox.Name == "CbAllItems")
-            {
-                if (checkbox.IsChecked == true)
-                {
+            //if (checkbox.Name == "CbAllItems")
+            //{
+            //    if (checkbox.IsChecked == true)
+            //    {
                     foreach (RssFeed subscription in _feedManager.GetFeeds())
                     {
                         subscription.IsChecked = true;
                     }
-                }
-            }
+            //    }
+            //}
         }
 
         private void CbAllItems_UnChecked(object sender, RoutedEventArgs e)
         {
-            CheckBox checkbox = sender as CheckBox;
+            //CheckBox checkbox = sender as CheckBox;
 
-            if (checkbox.Name == "CbAllItems")
-            {
-                if (checkbox.IsChecked == false)
-                {
+            //if (checkbox.Name == "CbAllItems")
+            //{
+            //    if (checkbox.IsChecked == false)
+            //    {
                     foreach (RssFeed subscription in _feedManager.GetFeeds())
                     {
                         subscription.IsChecked = false;
                     }
-                }
-            }
+            //    }
+            //}
         }
 
         private void BtnDeleteFeed_Click(object sender, RoutedEventArgs e)
