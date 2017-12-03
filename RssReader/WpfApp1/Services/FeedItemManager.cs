@@ -22,8 +22,6 @@ namespace WpfApp1.Services
                 XmlReader xmlReader = XmlReader.Create(url, settings);
                 SyndicationFeed feed = SyndicationFeed.Load(xmlReader);
 
-                //SaveUtility.SaveToFile(url);
-
                 return feed;
             }
             catch (Exception e)
@@ -40,9 +38,7 @@ namespace WpfApp1.Services
                 rssFeedItems.Add(new RssFeedItem()
                 {
                     Website = feed.Title.Text,
-                    Article = items.Title.Text,
-                    ArticleLink = items.Links[0].Uri,
-                    PublishedDateTime = items.PublishDate
+                    Item = items
                 });
             }
         }

@@ -23,13 +23,13 @@
                                 <GridViewColumn Header="Article" Width="800">
                                     <GridViewColumn.CellTemplate>
                                         <DataTemplate>
-                                            <TextBlock><Hyperlink RequestNavigate="Hyperlink_RequestNavigate" NavigateUri="{Binding ArticleLink}"><InlineUIContainer>
-                                            <TextBlock Text="{Binding Article}" />
+                                            <TextBlock><Hyperlink RequestNavigate="Hyperlink_RequestNavigate" NavigateUri="{Binding Item.Links[0].Uri}"><InlineUIContainer>
+                                            <TextBlock Text="{Binding Item.Title.Text}" />
                                         </InlineUIContainer></Hyperlink></TextBlock>
                                         </DataTemplate>
                                     </GridViewColumn.CellTemplate>
                                 </GridViewColumn>
-                                <GridViewColumn Header="Published Date" Width="100" DisplayMemberBinding="{Binding PublishedDateTime, StringFormat='{}{0:dd/MM/yyyy}'}"/>
+                                <GridViewColumn Header="Published Date" Width="100" DisplayMemberBinding="{Binding Item.PublishDate, StringFormat='{}{0:dd/MM/yyyy}'}"/>
                             </GridView>
                         </ListView.View>
                     </ListView>

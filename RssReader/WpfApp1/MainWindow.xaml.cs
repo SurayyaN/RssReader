@@ -64,8 +64,7 @@ namespace WpfApp1
             }
 
             var tempFeedItems = new List<RssFeedItem>(_rssFeedItems);
-
-            tempFeedItems.Sort( (a, b) => { return b.PublishedDateTime.CompareTo(a.PublishedDateTime); });
+            tempFeedItems.Sort((a, b) => { return b.Item.PublishDate.CompareTo(a.Item.PublishDate); });
 
             for (int i = 0; i < tempFeedItems.Count; i++)
             {
