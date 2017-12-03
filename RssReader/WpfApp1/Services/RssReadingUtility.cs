@@ -30,7 +30,7 @@ namespace WpfApp1.Services
             }
         }
 
-        public static void PrintFeed(SyndicationFeed feed, ObservableCollection<RssFeedItem> rssFeedItems)
+        public static void GetFeedItems(SyndicationFeed feed, ObservableCollection<RssFeedItem> rssFeedItems)
         {
             foreach (SyndicationItem items in feed.Items)
             {
@@ -39,7 +39,7 @@ namespace WpfApp1.Services
                     Website = feed.Title.Text,
                     Article = items.Title.Text,
                     ArticleLink = items.Links[0].Uri,
-                    PublishedDateTime = items.PublishDate.Date.ToShortDateString()
+                    PublishedDateTime = items.PublishDate
                 });
             }
         }

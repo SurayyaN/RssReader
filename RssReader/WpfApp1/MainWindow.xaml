@@ -16,7 +16,7 @@
                         <RowDefinition Height="400" />
                     </Grid.RowDefinitions>
                     <Button x:Name="BtnRefreshFeed" Content="Refresh Feed" Grid.Row="0" Margin="10, 10, 10, 0" Click="btnRefreshFeed_Click"/>
-                    <ListView x:Name="LvwArticle" Margin="10" Grid.Row="1" ScrollViewer.VerticalScrollBarVisibility="Visible" ScrollViewer.CanContentScroll="False">
+                    <ListView x:Name="LvwArticle" Margin="10" Grid.Row="1" ScrollViewer.VerticalScrollBarVisibility="Visible" ScrollViewer.CanContentScroll="False" >
                         <ListView.View>
                             <GridView>
                                 <GridViewColumn Header="Website" Width="200" DisplayMemberBinding="{Binding Website}" />
@@ -29,7 +29,7 @@
                                         </DataTemplate>
                                     </GridViewColumn.CellTemplate>
                                 </GridViewColumn>
-                                <GridViewColumn Header="Published Date" Width="100" DisplayMemberBinding="{Binding PublishedDateTime}"/>
+                                <GridViewColumn Header="Published Date" Width="100" DisplayMemberBinding="{Binding PublishedDateTime, StringFormat='{}{0:dd/MM/yyyy}'}"/>
                             </GridView>
                         </ListView.View>
                     </ListView>

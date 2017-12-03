@@ -14,6 +14,6 @@ namespace WpfApp1.Models
 
         public Uri ArticleLink { get; set; }
 
-        public string PublishedDateTime { get; set; }
+        public DateTimeOffset PublishedDateTime { get; set; }
     }
 }

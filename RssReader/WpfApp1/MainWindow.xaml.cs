@@ -60,7 +60,16 @@ namespace WpfApp1
 
             foreach (RssFeedSubscription subscription in _subscriptionsManager.GetSubscriptions())
             {
-                RssReadingUtility.PrintFeed(subscription.Feed, _rssFeedItems);
+                RssReadingUtility.GetFeedItems(subscription.Feed, _rssFeedItems);
+            }
+
+            var tempFeedItems = new List<RssFeedItem>(_rssFeedItems);
+
+            tempFeedItems.Sort( (a, b) => { return b.PublishedDateTime.CompareTo(a.PublishedDateTime); });
+
+            for (int i = 0; i < tempFeedItems.Count; i++)
+            {
+                _rssFeedItems.Move(_rssFeedItems.IndexOf(tempFeedItems[i]), i);
             }
         }
 
