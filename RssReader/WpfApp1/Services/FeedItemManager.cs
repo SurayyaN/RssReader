@@ -11,7 +11,7 @@ using WpfApp1.Models;
 
 namespace WpfApp1.Services
 {
-    public class RssReadingUtility
+    public class FeedItemManager
     {
         public static SyndicationFeed LoadFeed(string url)
         {
@@ -21,6 +21,9 @@ namespace WpfApp1.Services
                 settings.DtdProcessing = DtdProcessing.Parse;
                 XmlReader xmlReader = XmlReader.Create(url, settings);
                 SyndicationFeed feed = SyndicationFeed.Load(xmlReader);
+
+                SaveUtility.SaveToFile(url);
+
                 return feed;
             }
             catch (Exception e)

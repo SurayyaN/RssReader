@@ -9,20 +9,22 @@ using System.Threading.Tasks;
 namespace WpfApp1.Models
 {
     [Serializable]
-    public class RssFeedSubscription : INotifyPropertyChanged
+    public class RssFeed : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
         private SyndicationFeed _feed;
         private Boolean _isChecked;
+        private string _rssUrl;
 
-        public RssFeedSubscription()
+        public RssFeed()
         { }
 
-        public RssFeedSubscription(SyndicationFeed feed, Boolean isChecked = false)
+        public RssFeed(SyndicationFeed feed, string rssUrl, Boolean isChecked = false)
         {
             _feed = feed;
             _isChecked = isChecked;
+            _rssUrl = rssUrl;
         }
 
         public SyndicationFeed Feed
@@ -43,6 +45,12 @@ namespace WpfApp1.Models
                 _isChecked = value;
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("IsChecked"));
             }
+        }
+
+        public string RssUrl
+        {
+            get { return _rssUrl; }
+            set { _rssUrl = value; }
         }
     }
 }

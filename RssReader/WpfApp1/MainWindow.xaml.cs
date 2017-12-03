@@ -28,14 +28,14 @@ namespace WpfApp1
     {
         private ObservableCollection<RssFeedItem> _rssFeedItems;
 
-        private SubscriptionsManager _subscriptionsManager;
+        private FeedManager _feedManager;
 
         public MainWindow()
         {
             InitializeComponent();
 
-            _subscriptionsManager = new SubscriptionsManager();
-            ListboxSubscription.ItemsSource = _subscriptionsManager.GetSubscriptions();
+            _feedManager = new FeedManager();
+            ListboxSubscription.ItemsSource = _feedManager.GetFeeds();
 
             _rssFeedItems = new ObservableCollection<RssFeedItem>();
             LvwArticle.ItemsSource = _rssFeedItems;
@@ -45,11 +45,11 @@ namespace WpfApp1
         {
             string url = TxtRssUrl.Text;
 
-            SyndicationFeed feed = RssReadingUtility.LoadFeed(url);
+            SyndicationFeed feed = FeedItemManager.LoadFeed(url);
 
             if (feed != null)
             {
-                _subscriptionsManager.AddSubscription(new RssFeedSubscription() { Feed = feed});
+                _feedManager.AddFeed(new RssFeed() { Feed = feed, RssUrl = url});
                 btnRefreshFeed_Click(sender, e);
             }
         }
@@ -58,9 +58,9 @@ namespace WpfApp1
         {
             _rssFeedItems.Clear();
 
-            foreach (RssFeedSubscription subscription in _subscriptionsManager.GetSubscriptions())
+            foreach (RssFeed subscription in _feedManager.GetFeeds())
             {
-                RssReadingUtility.GetFeedItems(subscription.Feed, _rssFeedItems);
+                FeedItemManager.GetFeedItems(subscription.Feed, _rssFeedItems);
             }
 
             var tempFeedItems = new List<RssFeedItem>(_rssFeedItems);
@@ -81,7 +81,7 @@ namespace WpfApp1
             {
                 if (checkbox.IsChecked == true)
                 {
-                    foreach (RssFeedSubscription subscription in _subscriptionsManager.GetSubscriptions())
+                    foreach (RssFeed subscription in _feedManager.GetFeeds())
                     {
                         subscription.IsChecked = true;
                     }
@@ -97,7 +97,7 @@ namespace WpfApp1
             {
                 if (checkbox.IsChecked == false)
                 {
-                    foreach (RssFeedSubscription subscription in _subscriptionsManager.GetSubscriptions())
+                    foreach (RssFeed subscription in _feedManager.GetFeeds())
                     {
                         subscription.IsChecked = false;
                     }
@@ -107,17 +107,19 @@ namespace WpfApp1
 
         private void BtnDeleteFeed_Click(object sender, RoutedEventArgs e)
         {
-            List<RssFeedSubscription> feedToBeDeleted = new List<RssFeedSubscription>();
+            List<RssFeed> feedToBeDeleted = new List<RssFeed>();
 
-            foreach (RssFeedSubscription item in _subscriptionsManager.GetSubscriptions().Where(c => c.IsChecked))
+            foreach (RssFeed item in _feedManager.GetFeeds().Where(c => c.IsChecked))
             {
                 feedToBeDeleted.Add(item);
             }
 
-            foreach (RssFeedSubscription feed in feedToBeDeleted)
+            foreach (RssFeed feed in feedToBeDeleted)
             {
-                _subscriptionsManager.RemoveSubscription(feed);
+                _feedManager.RemoveFeed(feed);
             }
+
+            SaveUtility.SaveToFile(_feedManager.GetFeeds());
 
             btnRefreshFeed_Click(sender, e);
         }

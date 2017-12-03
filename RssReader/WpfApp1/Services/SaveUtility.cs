@@ -12,20 +12,9 @@ namespace WpfApp1.Services
 {
     public static class SaveUtility
     {
-        public static void SaveToFile(ObservableCollection<RssFeedSubscription> rssFeedSubscriptionList)
-        {
-            using (StreamWriter streamWriter = File.CreateText(@"c:\RSS Reader.json"))
-            {
-                foreach (RssFeedSubscription subscription in rssFeedSubscriptionList)
-                {
-                    streamWriter.WriteLine(subscription.Feed.Links[0].Uri);
-                }
-            }
-        }
-
         public static List<string> LoadFromFile()
         {
-            string filename = @"c:\RSS Reader.json";
+            string filename = @"c:\RSS Feeds.json";
             List<string> feeds = null; 
             
             if (File.Exists(filename))
@@ -35,6 +24,25 @@ namespace WpfApp1.Services
             }
 
             return feeds;
+        }
+
+        public static void SaveToFile(string url)
+        {
+                using (StreamWriter streamwriter = File.AppendText(@"c:\RSS Feeds.json"))
+                {
+                    streamwriter.WriteLine(url);
+                }
+        }
+
+        public static void SaveToFile(ObservableCollection<RssFeed> rssFeedList)
+        {
+            using (StreamWriter streamWriter = File.CreateText(@"c:\RSS Feeds.json"))
+            {
+                foreach (RssFeed feed in rssFeedList)
+                {
+                    streamWriter.WriteLine(feed.RssUrl);
+                }
+            }
         }
     }
 }
