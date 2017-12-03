@@ -28,6 +28,7 @@ namespace WpfApp1
     {
         private ObservableCollection<RssFeedItem> _rssFeedItems;
 
+        private FeedItemManager _feedItemManager;
         private FeedManager _feedManager;
 
         public MainWindow()
@@ -39,6 +40,9 @@ namespace WpfApp1
 
             _rssFeedItems = new ObservableCollection<RssFeedItem>();
             LvwFeedItems.ItemsSource = _rssFeedItems;
+
+            FeedItemManager.GetFeedItemsFromFeedList(_feedManager.GetFeeds(), _rssFeedItems);
+
         }
 
         private void btnAddNewFeed_Click(object sender, RoutedEventArgs e)
@@ -50,26 +54,14 @@ namespace WpfApp1
             if (feed != null)
             {
                 _feedManager.AddFeed(new RssFeed() { Feed = feed, RssUrl = url});
-                btnRefreshFeed_Click(sender, e);
+
+                FeedItemManager.GetFeedItemsFromFeedList(_feedManager.GetFeeds(), _rssFeedItems);
             }
         }
 
         private void btnRefreshFeed_Click(object sender, RoutedEventArgs e)
         {
-            _rssFeedItems.Clear();
-
-            foreach (RssFeed subscription in _feedManager.GetFeeds())
-            {
-                FeedItemManager.GetFeedItems(subscription.Feed, _rssFeedItems);
-            }
-
-            var tempFeedItems = new List<RssFeedItem>(_rssFeedItems);
-            tempFeedItems.Sort((a, b) => { return b.Item.PublishDate.CompareTo(a.Item.PublishDate); });
-
-            for (int i = 0; i < tempFeedItems.Count; i++)
-            {
-                _rssFeedItems.Move(_rssFeedItems.IndexOf(tempFeedItems[i]), i);
-            }
+            FeedItemManager.GetFeedItemsFromFeedList(_feedManager.GetFeeds(), _rssFeedItems);
         }
 
         private void CbAllItems_Checked(object sender, RoutedEventArgs e)
@@ -120,7 +112,7 @@ namespace WpfApp1
 
             SaveUtility.SaveToFile(_feedManager.GetFeeds());
 
-            btnRefreshFeed_Click(sender, e);
+            FeedItemManager.GetFeedItemsFromFeedList(_feedManager.GetFeeds(), _rssFeedItems);
         }
 
         private void Hyperlink_RequestNavigate(object sender, RequestNavigateEventArgs e)

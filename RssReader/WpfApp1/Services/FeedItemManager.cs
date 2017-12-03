@@ -31,6 +31,19 @@ namespace WpfApp1.Services
             }
         }
 
+        public static void GetFeedItemsFromFeedList(ObservableCollection<RssFeed> rssFeeds,
+            ObservableCollection<RssFeedItem> rssFeedItems)
+        {
+            rssFeedItems.Clear();
+
+            foreach (RssFeed feed in rssFeeds)
+            {
+                GetFeedItems(feed.Feed, rssFeedItems);
+            }
+
+            SortList(rssFeedItems);
+        }
+
         public static void GetFeedItems(SyndicationFeed feed, ObservableCollection<RssFeedItem> rssFeedItems)
         {
             foreach (SyndicationItem items in feed.Items)
@@ -40,6 +53,17 @@ namespace WpfApp1.Services
                     Website = feed.Title.Text,
                     Item = items
                 });
+            }
+        }
+
+        private static void SortList(ObservableCollection<RssFeedItem> feedItems)
+        {
+            var tempFeedItems = new List<RssFeedItem>(feedItems);
+            tempFeedItems.Sort((a, b) => { return b.Item.PublishDate.CompareTo(a.Item.PublishDate); });
+
+            for (int i = 0; i < tempFeedItems.Count; i++)
+            {
+                feedItems.Move(feedItems.IndexOf(tempFeedItems[i]), i);
             }
         }
     }
