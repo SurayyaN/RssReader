@@ -82,6 +82,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Services\ApplicationFeedManager.cs" />
     <Compile Include="ViewModel\FeedViewModel.cs" />
     <Compile Include="Services\FeedItemManager.cs" />
     <Compile Include="Services\IFeedItemManager.cs" />
