@@ -9,13 +9,13 @@ using WpfApp1.Models;
 
 namespace WpfApp1.Services
 {
-    interface IFeedItemManager
+    public interface IFeedItemManager
     {
-        SyndicationFeed LoadFeed(string url);
+        //SyndicationFeed GetFeed(string url);
 
-        void GetFeedItemsFromFeedList(ObservableCollection<RssFeed> rssFeeds,
-            ObservableCollection<RssFeedItem> rssFeedItems);
+        //void LoadFeedItemToView(ObservableCollection<RssFeed> rssFeeds,
+        //    ObservableCollection<RssFeedItem> rssFeedItems);
 
-        void GetFeedItems(SyndicationFeed feed, ObservableCollection<RssFeedItem> rssFeedItems);
+        void AddFeedItem(SyndicationFeed feed, ObservableCollection<RssFeedItem> rssFeedItems);
     }
 }

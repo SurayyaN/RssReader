@@ -10,9 +10,9 @@ using Newtonsoft.Json;
 
 namespace WpfApp1.Services
 {
-    public static class SaveUtility
+    public class SaveUtility : ISaveUtility
     {
-        public static List<string> LoadFromFile()
+        public List<string> LoadFromFile()
         {
             string filename = @"c:\RSS Feeds.json";
             List<string> feeds = null; 
@@ -34,7 +34,7 @@ namespace WpfApp1.Services
         //        }
         //}
 
-        public static void SaveToFile(ObservableCollection<RssFeed> rssFeedList)
+        public void SaveToFile(ObservableCollection<RssFeed> rssFeedList)
         {
             using (StreamWriter streamWriter = File.CreateText(@"c:\RSS Feeds.json"))
             {

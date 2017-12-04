@@ -8,7 +8,7 @@ using WpfApp1.Models;
 
 namespace WpfApp1.Services
 {
-    interface ISaveUtility
+    public interface ISaveUtility
     {
         List<string> LoadFromFile();
 

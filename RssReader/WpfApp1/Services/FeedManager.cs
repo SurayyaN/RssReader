@@ -13,58 +13,107 @@ using WpfApp1.Models;
 namespace WpfApp1.Services
 {
     [Serializable]
-    public class FeedManager
+    public class FeedManager : IFeedManager
     {
-        private ObservableCollection<RssFeed> _rssFeedList;
+        //private ObservableCollection<RssFeed> _rssFeedList;
 
-        public FeedManager()
+        private ISaveUtility _saveUtility;
+
+        public FeedManager(ISaveUtility saveUtility)
         {
-            _rssFeedList = new ObservableCollection<RssFeed>();
+            _saveUtility = saveUtility;
+            //_rssFeedList = new ObservableCollection<RssFeed>();
 
-            if (SaveUtility.LoadFromFile() != null)
-            {
-                foreach (string uri in SaveUtility.LoadFromFile())
-                {
-                    SyndicationFeed feed = FeedItemManager.LoadFeed(uri);
+            ////if (SaveUtility.LoadFromFile() != null)
+            ////{
+            ////    foreach (string uri in SaveUtility.LoadFromFile())
+            ////    {
+            ////        SyndicationFeed feed = FeedItemManager.LoadFeed(uri);
 
-                    if (feed != null)
-                    {
-                        AddFeed(new RssFeed() { Feed = feed, RssUrl = uri});
-                    }
-                }
-            }
+            ////        if (feed != null)
+            ////        {
+            ////            AddFeed(new RssFeed() { Feed = feed, RssUrl = uri});
+            ////        }
+            ////    }
+            ////}
+
+            //LoadFromFile(_rssFeedList);
         }
 
-        public ObservableCollection<RssFeed> GetFeeds()
-        {
-            return _rssFeedList;
-        }
+        //public void LoadFromFile(ObservableCollection<RssFeed> rssFeedList)
+        //{
+        //    if (SaveUtility.LoadFromFile() != null)
+        //    {
+        //        foreach (string uri in SaveUtility.LoadFromFile())
+        //        {
+        //            SyndicationFeed feed = FeedItemManager.LoadFeed(uri);
 
-        public void AddFeed(RssFeed rssFeed)
+        //            if (feed != null)
+        //            {
+        //                AddFeed(rssFeedList, new RssFeed() { Feed = feed, RssUrl = uri });
+        //            }
+        //        }
+        //    }
+        //}
+
+        //public ObservableCollection<RssFeed> GetFeeds()
+        //{
+        //    return _rssFeedList;
+        //}
+
+        //public void AddFeed(RssFeed rssFeed)
+        //{
+        //    if (_rssFeedList.Count() != 0)
+        //    {
+        //        bool exist = _rssFeedList.Any(c => c.Feed.Title.Text == rssFeed.Feed.Title.Text);
+
+        //        if (exist)
+        //        {
+        //            MessageBox.Show("Subscription already exists", "Alert", MessageBoxButton.OK, MessageBoxImage.Information);
+        //        }
+
+        //        _rssFeedList.Add(rssFeed);
+        //    }
+
+        //    else
+        //    {
+        //        _rssFeedList.Add(rssFeed);
+        //    }
+
+        //    SaveUtility.SaveToFile(_rssFeedList);
+        //}
+
+        public void AddFeed(ObservableCollection<RssFeed> rssFeedList, RssFeed rssFeed)
         {
-            if (_rssFeedList.Count() != 0)
+            if (rssFeedList.Count() != 0)
             {
-                bool exist = _rssFeedList.Any(c => c.Feed.Title.Text == rssFeed.Feed.Title.Text);
+                bool exist = rssFeedList.Any(c => c.Feed.Title.Text == rssFeed.Feed.Title.Text);
 
                 if (exist)
                 {
                     MessageBox.Show("Subscription already exists", "Alert", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
 
-                _rssFeedList.Add(rssFeed);
+                rssFeedList.Add(rssFeed);
             }
 
             else
             {
-                _rssFeedList.Add(rssFeed);
+                rssFeedList.Add(rssFeed);
             }
 
-            SaveUtility.SaveToFile(_rssFeedList);
+            //SaveUtility.SaveToFile(rssFeedList);
+            _saveUtility.SaveToFile(rssFeedList);
         }
 
-        public void RemoveFeed(RssFeed rssFeed)
+        //public void RemoveFeed(RssFeed rssFeed)
+        //{
+        //    _rssFeedList.Remove(rssFeed);
+        //}
+
+        public void RemoveFeed(ObservableCollection<RssFeed> rssFeedList, RssFeed rssFeed)
         {
-            _rssFeedList.Remove(rssFeed);
+            rssFeedList.Remove(rssFeed);
         }
     }
 }
