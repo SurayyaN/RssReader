@@ -10,12 +10,22 @@ using WpfApp1.Models;
 
 namespace WpfApp1.Services
 {
+    /// <summary>
+    /// Class ApplicationFeedManager.
+    /// </summary>
+    /// <seealso cref="WpfApp1.Services.IApplicationFeedManager" />
     public class ApplicationFeedManager : IApplicationFeedManager
     {
         private IFeedManager _feedManager;
         private IFeedItemManager _feedItemManager;
         private ISaveUtility _saveUtility;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ApplicationFeedManager"/> class.
+        /// </summary>
+        /// <param name="feedManager">The feed manager.</param>
+        /// <param name="feedItemManager">The feed item manager.</param>
+        /// <param name="saveUtility">The save utility.</param>
         public ApplicationFeedManager(IFeedManager feedManager, IFeedItemManager feedItemManager, ISaveUtility saveUtility)
         {
             _feedManager = feedManager;
@@ -23,6 +33,10 @@ namespace WpfApp1.Services
             _saveUtility = saveUtility;
         }
 
+        /// <summary>
+        /// loads the feeds from the saved rss list on startup
+        /// </summary>
+        /// <param name="rssFeedList">The RSS feed list.</param>
         public void Onload(ObservableCollection<RssFeed> rssFeedList)
         {
             if (_saveUtility.LoadFromFile() != null)
@@ -39,6 +53,12 @@ namespace WpfApp1.Services
             }
         }
 
+        /// <summary>
+        /// Adds the feed from the feed list into the feed item list.
+        /// </summary>
+        /// <param name="url">The URL.</param>
+        /// <param name="rssFeedList">The RSS feed list.</param>
+        /// <param name="rssFeedItemList">The RSS feed item list.</param>
         public void AddFeed(string url, ObservableCollection<RssFeed> rssFeedList, ObservableCollection<RssFeedItem> rssFeedItemList)
         {
             SyndicationFeed feed = LoadFeedFromUrl(url);
@@ -51,6 +71,11 @@ namespace WpfApp1.Services
             }
         }
 
+        /// <summary>
+        /// Deletes the feed selected by user.
+        /// </summary>
+        /// <param name="rssFeedList">The RSS feed list.</param>
+        /// <param name="rssFeedItemList">The RSS feed item list.</param>
         public void DeleteFeed (ObservableCollection<RssFeed> rssFeedList, ObservableCollection<RssFeedItem> rssFeedItemList)
         {
             List<RssFeed> feedToBeDeleted = new List<RssFeed>();
@@ -70,6 +95,11 @@ namespace WpfApp1.Services
             LoadFeedItemToView(rssFeedList, rssFeedItemList);
         }
 
+        /// <summary>
+        /// Loads and sorts the feed items to view.
+        /// </summary>
+        /// <param name="rssFeeds">The RSS feeds.</param>
+        /// <param name="rssFeedItems">The RSS feed items.</param>
         public void LoadFeedItemToView(ObservableCollection<RssFeed> rssFeeds,
                 ObservableCollection<RssFeedItem> rssFeedItems)
         {
@@ -83,6 +113,11 @@ namespace WpfApp1.Services
             SortList(rssFeedItems);
         }
 
+        /// <summary>
+        /// Loads the feed from URL.
+        /// </summary>
+        /// <param name="url">The URL.</param>
+        /// <returns>SyndicationFeed.</returns>
         private SyndicationFeed LoadFeedFromUrl(string url)
         {
             try
@@ -101,6 +136,10 @@ namespace WpfApp1.Services
             }
         }
 
+        /// <summary>
+        /// Sorts the feed items according to publsh date.
+        /// </summary>
+        /// <param name="feedItems">The feed items.</param>
         private void SortList(ObservableCollection<RssFeedItem> feedItems)
         {
             var tempFeedItems = new List<RssFeedItem>(feedItems);

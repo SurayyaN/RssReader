@@ -1,23 +1,25 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.ObjectModel;
 using WpfApp1.Models;
 
 namespace WpfApp1.Services
 {
+    /// <summary>
+    /// Interface IFeedManager
+    /// </summary>
     public interface IFeedManager
     {
-        //ObservableCollection<RssFeed> GetFeeds();
-
-        //void AddFeed(RssFeed rssFeed);
-
-        //void RemoveFeed(RssFeed rssFeed);
-
+        /// <summary>
+        /// Adds the feed to the feed list.
+        /// </summary>
+        /// <param name="rssFeedList">The RSS feed list.</param>
+        /// <param name="rssFeed">The RSS feed.</param>
         void AddFeed(ObservableCollection<RssFeed> rssFeedList, RssFeed rssFeed);
 
+        /// <summary>
+        /// Removes the feed from the feed list.
+        /// </summary>
+        /// <param name="rssFeedList">The RSS feed list.</param>
+        /// <param name="rssFeed">The RSS feed.</param>
         void RemoveFeed(ObservableCollection<RssFeed> rssFeedList, RssFeed rssFeed);
     }
 }
