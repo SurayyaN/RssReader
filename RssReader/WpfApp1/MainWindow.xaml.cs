@@ -15,22 +15,30 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Xml;
 using System.ServiceModel.Syndication;
-using WpfApp1.Models;
+using RssFeedReader.Models;
 using System.Diagnostics;
-using WpfApp1.Services;
+using RssFeedReader.Services;
 
-namespace WpfApp1
+namespace RssFeedReader
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
     public partial class MainWindow : Window
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="MainWindow"/> class.
+        /// </summary>
         public MainWindow()
         {
             InitializeComponent();
         }
 
+        /// <summary>
+        /// Handles the RequestNavigate event of the Hyperlink control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="RequestNavigateEventArgs"/> instance containing the event data.</param>
         private void Hyperlink_RequestNavigate(object sender, RequestNavigateEventArgs e)
         {
             Process.Start(new ProcessStartInfo(e.Uri.AbsoluteUri));

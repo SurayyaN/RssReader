@@ -1,22 +1,39 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.ServiceModel.Syndication;
-using System.Text;
-using System.Threading.Tasks;
-using WpfApp1.Models;
+﻿using System.Collections.ObjectModel;
+using RssFeedReader.Models;
 
-namespace WpfApp1.Services
+namespace RssFeedReader.Services
 {
+    /// <summary>
+    /// Interface IApplicationFeedManager
+    /// </summary>
     public interface IApplicationFeedManager
     {
+        /// <summary>
+        /// loads the feeds from the saved rss list on startup
+        /// </summary>
+        /// <param name="rssFeedList">The RSS feed list.</param>
         void Onload(ObservableCollection<RssFeed> rssFeedList);
 
+        /// <summary>
+        /// Adds the feed from the feed list into the feed item list.
+        /// </summary>
+        /// <param name="url">The URL.</param>
+        /// <param name="rssFeedList">The RSS feed list.</param>
+        /// <param name="rssFeedItemList">The RSS feed item list.</param>
         void AddFeed(string url, ObservableCollection<RssFeed> rssFeedList, ObservableCollection<RssFeedItem> rssFeedItemList);
 
+        /// <summary>
+        /// Deletes the feed selected by user.
+        /// </summary>
+        /// <param name="rssFeedList">The RSS feed list.</param>
+        /// <param name="rssFeedItemList">The RSS feed item list.</param>
         void DeleteFeed(ObservableCollection<RssFeed> rssFeedList, ObservableCollection<RssFeedItem> rssFeedItemList);
 
+        /// <summary>
+        /// Loads and sorts the feed items to view.
+        /// </summary>
+        /// <param name="rssFeeds">The RSS feeds.</param>
+        /// <param name="rssFeedItems">The RSS feed items.</param>
         void LoadFeedItemToView(ObservableCollection<RssFeed> rssFeeds,
                 ObservableCollection<RssFeedItem> rssFeedItems);
 

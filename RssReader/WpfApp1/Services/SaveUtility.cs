@@ -1,20 +1,24 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using WpfApp1.Models;
-using Newtonsoft.Json;
+using RssFeedReader.Models;
+using RssFeedReader.Properties;
 
-namespace WpfApp1.Services
+namespace RssFeedReader.Services
 {
+    /// <summary>
+    /// Class SaveUtility.
+    /// </summary>
+    /// <seealso cref="RssFeedReader.Services.ISaveUtility" />
     public class SaveUtility : ISaveUtility
     {
+        /// <summary>
+        /// Loads the feeds from the saved rss
+        /// </summary>
+        /// <returns>List&lt;System.String&gt;.</returns>
         public List<string> LoadFromFile()
         {
-            string filename = @"c:\RSS Feeds.json";
+            string filename = Settings.Default.SaveFileName;
             List<string> feeds = null; 
             
             if (File.Exists(filename))
@@ -26,17 +30,13 @@ namespace WpfApp1.Services
             return feeds;
         }
 
-        //public static void SaveToFile(string url)
-        //{
-        //        using (StreamWriter streamwriter = File.AppendText(@"c:\RSS Feeds.json"))
-        //        {
-        //            streamwriter.WriteLine(url);
-        //        }
-        //}
-
+        /// <summary>
+        /// Saves the feeds to a file
+        /// </summary>
+        /// <param name="rssFeedList">The RSS feed list.</param>
         public void SaveToFile(ObservableCollection<RssFeed> rssFeedList)
         {
-            using (StreamWriter streamWriter = File.CreateText(@"c:\RSS Feeds.json"))
+            using (StreamWriter streamWriter = File.CreateText(Settings.Default.SaveFileName))
             {
                 foreach (RssFeed feed in rssFeedList)
                 {
