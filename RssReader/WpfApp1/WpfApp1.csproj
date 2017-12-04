@@ -89,7 +89,6 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Command\DelegateCommand.cs" />
-    <Compile Include="Command\DelegateCommandWithParam.cs" />
     <Compile Include="Services\ApplicationFeedManager.cs" />
     <Compile Include="Services\IApplicationFeedManager.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
