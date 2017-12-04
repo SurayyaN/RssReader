@@ -1,14 +1,15 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
-using WpfApp1.Models;
+using RssFeedReader.Models;
+using RssFeedReader.Properties;
 
-namespace WpfApp1.Services
+namespace RssFeedReader.Services
 {
     /// <summary>
     /// Class SaveUtility.
     /// </summary>
-    /// <seealso cref="WpfApp1.Services.ISaveUtility" />
+    /// <seealso cref="RssFeedReader.Services.ISaveUtility" />
     public class SaveUtility : ISaveUtility
     {
         /// <summary>
@@ -17,7 +18,7 @@ namespace WpfApp1.Services
         /// <returns>List&lt;System.String&gt;.</returns>
         public List<string> LoadFromFile()
         {
-            string filename = @"c:\RSS Feeds.json";
+            string filename = Settings.Default.SaveFileName;
             List<string> feeds = null; 
             
             if (File.Exists(filename))
@@ -35,7 +36,7 @@ namespace WpfApp1.Services
         /// <param name="rssFeedList">The RSS feed list.</param>
         public void SaveToFile(ObservableCollection<RssFeed> rssFeedList)
         {
-            using (StreamWriter streamWriter = File.CreateText(@"c:\RSS Feeds.json"))
+            using (StreamWriter streamWriter = File.CreateText(Settings.Default.SaveFileName))
             {
                 foreach (RssFeed feed in rssFeedList)
                 {

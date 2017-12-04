@@ -9,11 +9,11 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using System.Windows.Navigation;
-using WpfApp1.Command;
-using WpfApp1.Models;
-using WpfApp1.Services;
+using RssFeedReader.Command;
+using RssFeedReader.Models;
+using RssFeedReader.Services;
 
-namespace WpfApp1
+namespace RssFeedReader
 {
     /// <summary>
     /// Class MainViewModel.

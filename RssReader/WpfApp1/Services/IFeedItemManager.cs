@@ -1,8 +1,8 @@
 ﻿using System.Collections.ObjectModel;
 using System.ServiceModel.Syndication;
-using WpfApp1.Models;
+using RssFeedReader.Models;
 
-namespace WpfApp1.Services
+namespace RssFeedReader.Services
 {
     /// <summary>
     /// Interface IFeedItemManager

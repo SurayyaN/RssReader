@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 using System.Windows;
 using Microsoft.Practices.Unity;
 using Unity;
-using WpfApp1.Services;
+using RssFeedReader.Services;
 
-namespace WpfApp1
+namespace RssFeedReader
 {
     /// <summary>
     /// Interaction logic for App.xaml

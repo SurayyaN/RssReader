@@ -1,7 +1,7 @@
 ﻿using System.Collections.ObjectModel;
-using WpfApp1.Models;
+using RssFeedReader.Models;
 
-namespace WpfApp1.Services
+namespace RssFeedReader.Services
 {
     /// <summary>
     /// Interface IApplicationFeedManager

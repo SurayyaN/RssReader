@@ -15,11 +15,11 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Xml;
 using System.ServiceModel.Syndication;
-using WpfApp1.Models;
+using RssFeedReader.Models;
 using System.Diagnostics;
-using WpfApp1.Services;
+using RssFeedReader.Services;
 
-namespace WpfApp1
+namespace RssFeedReader
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml

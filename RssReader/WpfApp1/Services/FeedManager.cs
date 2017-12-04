@@ -2,14 +2,15 @@
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows;
-using WpfApp1.Models;
+using RssFeedReader.Models;
+using RssFeedReader.Properties;
 
-namespace WpfApp1.Services
+namespace RssFeedReader.Services
 {
     /// <summary>
     /// Class FeedManager.
     /// </summary>
-    /// <seealso cref="WpfApp1.Services.IFeedManager" />
+    /// <seealso cref="RssFeedReader.Services.IFeedManager" />
     [Serializable]
     public class FeedManager : IFeedManager
     {
@@ -37,10 +38,11 @@ namespace WpfApp1.Services
 
                 if (exist)
                 {
-                    MessageBox.Show("Subscription already exists", "Alert", MessageBoxButton.OK, MessageBoxImage.Information);
+                    MessageBox.Show(Resources.ERROR_LOADING_FEED_MESSAGE, Resources.MESSAGEBOX_ALERT, MessageBoxButton.OK, MessageBoxImage.Information);
                 }
 
-                rssFeedList.Add(rssFeed);
+                else
+                    rssFeedList.Add(rssFeed);
             }
 
             else

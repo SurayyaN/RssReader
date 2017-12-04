@@ -5,7 +5,7 @@ using System.ServiceModel.Syndication;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace WpfApp1.Models
+namespace RssFeedReader.Models
 {
     /// <summary>
     /// Class RssFeedItem.

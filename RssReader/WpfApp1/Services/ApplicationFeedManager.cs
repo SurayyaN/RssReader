@@ -3,17 +3,17 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.ServiceModel.Syndication;
-using System.Text;
-using System.Threading.Tasks;
+using System.Windows;
 using System.Xml;
-using WpfApp1.Models;
+using RssFeedReader.Models;
+using RssFeedReader.Properties;
 
-namespace WpfApp1.Services
+namespace RssFeedReader.Services
 {
     /// <summary>
     /// Class ApplicationFeedManager.
     /// </summary>
-    /// <seealso cref="WpfApp1.Services.IApplicationFeedManager" />
+    /// <seealso cref="RssFeedReader.Services.IApplicationFeedManager" />
     public class ApplicationFeedManager : IApplicationFeedManager
     {
         private IFeedManager _feedManager;
@@ -131,7 +131,7 @@ namespace WpfApp1.Services
             }
             catch (Exception e)
             {
-                //MessageBox.Show(e.Message, "Exception", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(e.Message, Resources.MESSAGEBOX_EXCEPTION, MessageBoxButton.OK, MessageBoxImage.Error);
                 return null;
             }
         }

@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 /// <summary>
 /// The Models namespace.
 /// </summary>
-namespace WpfApp1.Models
+namespace RssFeedReader.Models
 {
     /// <summary>
     /// Class RssFeed. this model contains the feed and the rss url
