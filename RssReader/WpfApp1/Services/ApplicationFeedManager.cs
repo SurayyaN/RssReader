@@ -10,7 +10,7 @@ using WpfApp1.Models;
 
 namespace WpfApp1.Services
 {
-    public class ApplicationFeedManager
+    public class ApplicationFeedManager : IApplicationFeedManager
     {
         private IFeedManager _feedManager;
         private IFeedItemManager _feedItemManager;
@@ -27,7 +27,7 @@ namespace WpfApp1.Services
         {
             if (_saveUtility.LoadFromFile() != null)
             {
-                foreach (string uri in SaveUtility.LoadFromFile())
+                foreach (string uri in _saveUtility.LoadFromFile())
                 {
                     SyndicationFeed feed = LoadFeedFromUrl(uri);
 
@@ -39,24 +39,6 @@ namespace WpfApp1.Services
             }
         }
 
-        public SyndicationFeed LoadFeedFromUrl(string url)
-        {
-            try
-            {
-                XmlReaderSettings settings = new XmlReaderSettings();
-                settings.DtdProcessing = DtdProcessing.Parse;
-                XmlReader xmlReader = XmlReader.Create(url, settings);
-                SyndicationFeed feed = SyndicationFeed.Load(xmlReader);
-
-                return feed;
-            }
-            catch (Exception e)
-            {
-                //MessageBox.Show(e.Message, "Exception", MessageBoxButton.OK, MessageBoxImage.Error);
-                return null;
-            }
-        }
-
         public void AddFeed(string url, ObservableCollection<RssFeed> rssFeedList, ObservableCollection<RssFeedItem> rssFeedItemList)
         {
             SyndicationFeed feed = LoadFeedFromUrl(url);
@@ -65,9 +47,6 @@ namespace WpfApp1.Services
             {
                 _feedManager.AddFeed(rssFeedList, new RssFeed() { Feed = feed, RssUrl = url });
 
-                //FeedItemManager.GetFeedItemsFromFeedList(_feedManager.GetFeeds(), _rssFeedItems);
-
-                //_feedItemManager.LoadFeedItemToView(rssFeedList, rssFeedItemList);
                 LoadFeedItemToView(rssFeedList, rssFeedItemList);
             }
         }
@@ -86,9 +65,8 @@ namespace WpfApp1.Services
                 _feedManager.RemoveFeed(rssFeedList, feed);
             }
 
-            SaveUtility.SaveToFile(rssFeedList);
+            _saveUtility.SaveToFile(rssFeedList);
 
-            //_feedItemManager.LoadFeedItemToView(rssFeedList, rssFeedItemList);
             LoadFeedItemToView(rssFeedList, rssFeedItemList);
         }
 
@@ -103,6 +81,24 @@ namespace WpfApp1.Services
             }
 
             SortList(rssFeedItems);
+        }
+
+        private SyndicationFeed LoadFeedFromUrl(string url)
+        {
+            try
+            {
+                XmlReaderSettings settings = new XmlReaderSettings();
+                settings.DtdProcessing = DtdProcessing.Parse;
+                XmlReader xmlReader = XmlReader.Create(url, settings);
+                SyndicationFeed feed = SyndicationFeed.Load(xmlReader);
+
+                return feed;
+            }
+            catch (Exception e)
+            {
+                //MessageBox.Show(e.Message, "Exception", MessageBoxButton.OK, MessageBoxImage.Error);
+                return null;
+            }
         }
 
         private void SortList(ObservableCollection<RssFeedItem> feedItems)

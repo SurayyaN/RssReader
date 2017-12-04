@@ -3,6 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
         xmlns:local="clr-namespace:WpfApp1"
         mc:Ignorable="d"
         Title="MainWindow" Height="552.045" Width="1200">
@@ -15,15 +16,15 @@
                         <RowDefinition Height="1*" />
                         <RowDefinition Height="400" />
                     </Grid.RowDefinitions>
-                    <Button x:Name="BtnRefreshFeed" Content="Refresh Feed" Grid.Row="0" Margin="10, 10, 10, 0" Click="btnRefreshFeed_Click"/>
-                    <ListView x:Name="LvwFeedItems" Margin="10" Grid.Row="1" ScrollViewer.VerticalScrollBarVisibility="Visible" ScrollViewer.CanContentScroll="False" >
+                    <Button x:Name="BtnRefreshFeed" Command="{Binding RefreshFeedCommand}" Content="Refresh Feed" Grid.Row="0" Margin="10, 10, 10, 0"/>
+                    <ListView x:Name="LvwFeedItems" ItemsSource="{Binding Path=RssFeedItems}" Margin="10" Grid.Row="1" ScrollViewer.VerticalScrollBarVisibility="Visible" ScrollViewer.CanContentScroll="False" >
                         <ListView.View>
                             <GridView>
                                 <GridViewColumn Header="Website" Width="200" DisplayMemberBinding="{Binding Website}" />
                                 <GridViewColumn Header="Article" Width="800">
                                     <GridViewColumn.CellTemplate>
                                         <DataTemplate>
-                                            <TextBlock><Hyperlink RequestNavigate="Hyperlink_RequestNavigate" NavigateUri="{Binding Item.Links[0].Uri}"><InlineUIContainer>
+                                            <TextBlock><Hyperlink NavigateUri="{Binding Item.Links[0].Uri}" RequestNavigate="Hyperlink_RequestNavigate"><InlineUIContainer>
                                             <TextBlock Text="{Binding Item.Title.Text}" />
                                         </InlineUIContainer></Hyperlink></TextBlock>
                                         </DataTemplate>
@@ -47,10 +48,19 @@
                             <RowDefinition Height="1*" />
                             <RowDefinition Height="*" />
                         </Grid.RowDefinitions>
-                        <TextBox x:Name="TxtRssUrl"  Grid.Row="0" Grid.Column="0" HorizontalAlignment="Left" Width="888" />
-                        <Button x:Name="BtnAddNew" Margin="10, 0, 0, 0" Grid.Row="0" Grid.Column="1" Content="Add New Rss" Click="btnAddNewFeed_Click" />
-                        <CheckBox x:Name="CbAllItems" Margin="0, 10, 0, 0" Grid.Row="1" Grid.Column="0" Checked="CbAllItems_Checked" Unchecked="CbAllItems_UnChecked ">Select / Unselect All</CheckBox>
-                        <ListBox x:Name="ListboxFeeds" Margin="0, 10, 0, 0" Grid.Row="2" Grid.Column="0"  Height="350">
+                        <TextBox x:Name="TxtRssUrl" Text="{Binding Url}" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Left" Width="888" />
+                        <Button x:Name="BtnAddNew" Command="{Binding AddNewFeedCommand}" Margin="10, 0, 0, 0" Grid.Row="0" Grid.Column="1" Content="Add New Rss" />
+                        <CheckBox x:Name="CbAllItems" Margin="0, 10, 0, 0" Grid.Row="1" Grid.Column="0" Content="Select / Unselect All" >
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="Checked">
+                                    <i:InvokeCommandAction Command="{Binding CheckAllItemsCommand}" />
+                                </i:EventTrigger>
+                                <i:EventTrigger EventName="Unchecked">
+                                    <i:InvokeCommandAction Command="{Binding CheckAllItemsCommand}" />
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
+                        </CheckBox>
+                        <ListBox x:Name="ListboxFeeds" ItemsSource="{Binding RssFeeds}" Margin="0, 10, 0, 0" Grid.Row="2" Grid.Column="0"  Height="350">
                             <ListBox.ItemTemplate>
                                 <DataTemplate>
                                     <Grid>
@@ -59,7 +69,7 @@
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
                         </ListBox>
-                        <Button x:Name="BtnDeleteSubscription" Margin="10, 10, 10, 0" Grid.Row="2" Grid.Column="1" Content="Delete Feed" VerticalAlignment="Bottom" Click="BtnDeleteFeed_Click"/>
+                        <Button x:Name="BtnDeleteSubscription" Command="{Binding DeleteFeedCommand}" Margin="10, 10, 10, 0" Grid.Row="2" Grid.Column="1" Content="Delete Feed" VerticalAlignment="Bottom" />
                     </Grid>
                 </Grid>
             </TabItem>
