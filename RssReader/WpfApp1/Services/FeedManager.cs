@@ -13,45 +13,48 @@ using WpfApp1.Models;
 namespace WpfApp1.Services
 {
     [Serializable]
-    public class FeedManager
+    public class FeedManager : IFeedManager
     {
-        private ObservableCollection<RssFeed> _rssFeedList;
+        //private ObservableCollection<RssFeed> _rssFeedList;
 
-        public FeedManager()
+        private ISaveUtility _saveUtility;
+
+        public FeedManager(ISaveUtility saveUtility)
         {
-            _rssFeedList = new ObservableCollection<RssFeed>();
+            _saveUtility = saveUtility;
+            //_rssFeedList = new ObservableCollection<RssFeed>();
 
-            //if (SaveUtility.LoadFromFile() != null)
-            //{
-            //    foreach (string uri in SaveUtility.LoadFromFile())
-            //    {
-            //        SyndicationFeed feed = FeedItemManager.LoadFeed(uri);
+            ////if (SaveUtility.LoadFromFile() != null)
+            ////{
+            ////    foreach (string uri in SaveUtility.LoadFromFile())
+            ////    {
+            ////        SyndicationFeed feed = FeedItemManager.LoadFeed(uri);
 
-            //        if (feed != null)
-            //        {
-            //            AddFeed(new RssFeed() { Feed = feed, RssUrl = uri});
-            //        }
-            //    }
-            //}
+            ////        if (feed != null)
+            ////        {
+            ////            AddFeed(new RssFeed() { Feed = feed, RssUrl = uri});
+            ////        }
+            ////    }
+            ////}
 
-            OnLoad(_rssFeedList);
+            //LoadFromFile(_rssFeedList);
         }
 
-        public void OnLoad(ObservableCollection<RssFeed> rssFeedList)
-        {
-            if (SaveUtility.LoadFromFile() != null)
-            {
-                foreach (string uri in SaveUtility.LoadFromFile())
-                {
-                    SyndicationFeed feed = FeedItemManager.LoadFeed(uri);
+        //public void LoadFromFile(ObservableCollection<RssFeed> rssFeedList)
+        //{
+        //    if (SaveUtility.LoadFromFile() != null)
+        //    {
+        //        foreach (string uri in SaveUtility.LoadFromFile())
+        //        {
+        //            SyndicationFeed feed = FeedItemManager.LoadFeed(uri);
 
-                    if (feed != null)
-                    {
-                        AddFeed(rssFeedList, new RssFeed() { Feed = feed, RssUrl = uri });
-                    }
-                }
-            }
-        }
+        //            if (feed != null)
+        //            {
+        //                AddFeed(rssFeedList, new RssFeed() { Feed = feed, RssUrl = uri });
+        //            }
+        //        }
+        //    }
+        //}
 
         //public ObservableCollection<RssFeed> GetFeeds()
         //{
@@ -99,7 +102,8 @@ namespace WpfApp1.Services
                 rssFeedList.Add(rssFeed);
             }
 
-            SaveUtility.SaveToFile(rssFeedList);
+            //SaveUtility.SaveToFile(rssFeedList);
+            _saveUtility.SaveToFile(rssFeedList);
         }
 
         //public void RemoveFeed(RssFeed rssFeed)

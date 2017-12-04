@@ -8,12 +8,16 @@ using WpfApp1.Models;
 
 namespace WpfApp1.Services
 {
-    interface IFeedManager
+    public interface IFeedManager
     {
-        ObservableCollection<RssFeed> GetFeeds();
+        //ObservableCollection<RssFeed> GetFeeds();
 
-        void AddFeed(RssFeed rssFeed);
+        //void AddFeed(RssFeed rssFeed);
 
-        void RemoveFeed(RssFeed rssFeed);
+        //void RemoveFeed(RssFeed rssFeed);
+
+        void AddFeed(ObservableCollection<RssFeed> rssFeedList, RssFeed rssFeed);
+
+        void RemoveFeed(ObservableCollection<RssFeed> rssFeedList, RssFeed rssFeed);
     }
 }
