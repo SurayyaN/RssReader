@@ -46,7 +46,7 @@
                             </LinearGradientBrush>
                         </Button.Background>
                     </Button>
-                    <ListView x:Name="LvwFeedItems" ItemsSource="{Binding Path=RssFeedItems}" Margin="10" Grid.Row="1" ScrollViewer.VerticalScrollBarVisibility="Visible" ScrollViewer.CanContentScroll="False" Foreground="LightGray" Background="Black" >
+                    <ListView x:Name="LvwFeedItems" ItemsSource="{Binding Path=RssFeedItems}" SelectedItem="{Binding Path=SelectedFeedItem}" Margin="10" Grid.Row="1" ScrollViewer.VerticalScrollBarVisibility="Visible" ScrollViewer.CanContentScroll="False" Foreground="LightGray" Background="Black" >
                         <ListView.ItemContainerStyle>
                             <Style TargetType="{x:Type ListViewItem}">
                                 <Style.Triggers>
@@ -81,8 +81,25 @@
                                         <Setter Property="Focusable" Value="False" />
                                     </Style>
                                 </GridView.ColumnHeaderContainerStyle>
+                                <GridViewColumn Header="Save" Width="40" >
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Text="save">
+                                                <i:Interaction.Triggers>
+                                                    <i:EventTrigger EventName="MouseLeftButtonDown">
+                                                        <i:InvokeCommandAction Command="{Binding 
+                                   Path=DataContext.SaveFeedItemsCommand, 
+                                   RelativeSource=
+                                   {RelativeSource FindAncestor, 
+                                   AncestorType={x:Type ListView}}}"/>
+                                                    </i:EventTrigger>
+                                                </i:Interaction.Triggers>
+                                            </TextBlock>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
                                 <GridViewColumn Header="Website" Width="200" DisplayMemberBinding="{Binding Website}" />
-                                <GridViewColumn Header="Article" Width="595">
+                                <GridViewColumn Header="Article" Width="555">
                                     <GridViewColumn.CellTemplate>
                                         <DataTemplate>
                                             <TextBlock><Hyperlink NavigateUri="{Binding Item.Links[0].Uri}" RequestNavigate="Hyperlink_RequestNavigate" TextBlock.Foreground="LightGray" TextBlock.FontWeight="Bold" >
@@ -128,7 +145,7 @@
                                     <i:InvokeCommandAction Command="{Binding CheckAllItemsCommand}" />
                                 </i:EventTrigger>
                                 <i:EventTrigger EventName="Unchecked">
-                                    <i:InvokeCommandAction Command="{Binding CheckAllItemsCommand}" />
+                                    <i:InvokeCommandAction Command="{Binding UncheckAllItemsCommand}" />
                                 </i:EventTrigger>
                             </i:Interaction.Triggers>
                         </CheckBox>

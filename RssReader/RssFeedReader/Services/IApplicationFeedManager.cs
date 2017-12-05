@@ -9,10 +9,10 @@ namespace RssFeedReader.Services
     public interface IApplicationFeedManager
     {
         /// <summary>
-        /// loads the feeds from the saved rss list on startup
+        /// loads the feeds from the saved rss list and saved feed items on startup
         /// </summary>
         /// <param name="rssFeedList">The RSS feed list.</param>
-        void Onload(ObservableCollection<RssFeed> rssFeedList);
+        void Onload(ObservableCollection<RssFeed> rssFeedList, ObservableCollection<RssFeedItem> savedFeedItemsList);
 
         /// <summary>
         /// Adds the feed from the feed list into the feed item list.
@@ -36,6 +36,12 @@ namespace RssFeedReader.Services
         /// <param name="rssFeedItems">The RSS feed items.</param>
         void LoadFeedItemToView(ObservableCollection<RssFeed> rssFeeds,
                 ObservableCollection<RssFeedItem> rssFeedItems);
+
+        /// <summary>
+        /// Saves the feed items.
+        /// </summary>
+        /// <param name="feedItemsToSave">The feed items to save.</param>
+        void SaveFeedItems(ObservableCollection<RssFeedItem> feedItemsToSave);
 
     }
 }

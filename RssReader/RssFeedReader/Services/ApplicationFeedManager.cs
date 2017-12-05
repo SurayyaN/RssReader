@@ -34,10 +34,10 @@ namespace RssFeedReader.Services
         }
 
         /// <summary>
-        /// loads the feeds from the saved rss list on startup
+        /// loads the feeds from the saved rss list and saved feed items on startup
         /// </summary>
         /// <param name="rssFeedList">The RSS feed list.</param>
-        public void Onload(ObservableCollection<RssFeed> rssFeedList)
+        public void Onload(ObservableCollection<RssFeed> rssFeedList, ObservableCollection<RssFeedItem> savedFeedItemsList)
         {
             if (_saveUtility.LoadFromFile() != null)
             {
@@ -49,6 +49,14 @@ namespace RssFeedReader.Services
                     {
                         _feedManager.AddFeed(rssFeedList, new RssFeed() { Feed = feed, RssUrl = uri });
                     }
+                }
+            }
+
+            if (_saveUtility.LoadFeedItemsFromFile() != null)
+            {
+                foreach (RssFeedItem feedItem in _saveUtility.LoadFeedItemsFromFile())
+                {
+                    savedFeedItemsList.Add(feedItem);
                 }
             }
         }
@@ -111,6 +119,19 @@ namespace RssFeedReader.Services
             }
 
             SortList(rssFeedItems);
+        }
+
+        /// <summary>
+        /// Saves the feed items.
+        /// </summary>
+        /// <param name="feedItemsToSave">The feed items to save.</param>
+        public void SaveFeedItems(ObservableCollection<RssFeedItem> feedItemsToSave)
+        {
+            foreach (RssFeedItem feedItem in feedItemsToSave)
+            {
+                _saveUtility.SaveFeedItemToFile(feedItem);
+            }
+            //_saveUtility.SaveFeedItemToFile(feedItemsToSave);
         }
 
         /// <summary>

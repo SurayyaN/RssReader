@@ -10,6 +10,7 @@ namespace RssFeedReader.Models
     /// <summary>
     /// Class RssFeedItem.
     /// </summary>
+    [Serializable]
     public class RssFeedItem
     {
         /// <summary>

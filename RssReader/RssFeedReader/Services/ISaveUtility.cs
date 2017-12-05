@@ -16,9 +16,21 @@ namespace RssFeedReader.Services
         List<string> LoadFromFile();
 
         /// <summary>
+        /// Loads the feed items from file.
+        /// </summary>
+        /// <returns>List&lt;RssFeedItem&gt;.</returns>
+        List<RssFeedItem> LoadFeedItemsFromFile();
+
+        /// <summary>
         /// Saves the feeds to a file
         /// </summary>
         /// <param name="rssFeedList">The RSS feed list.</param>
         void SaveToFile(ObservableCollection<RssFeed> rssFeedList);
+
+        /// <summary>
+        /// Saves the feed item to file.
+        /// </summary>
+        /// <param name="rssFeedItem">The RSS feed item.</param>
+        void SaveFeedItemToFile(RssFeedItem rssFeedItem);
     }
 }

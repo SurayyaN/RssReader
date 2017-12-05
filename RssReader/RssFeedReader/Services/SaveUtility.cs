@@ -32,6 +32,28 @@ namespace RssFeedReader.Services
         }
 
         /// <summary>
+        /// Loads the feed items from file.
+        /// </summary>
+        /// <returns>List&lt;RssFeedItem&gt;.</returns>
+        public List<RssFeedItem> LoadFeedItemsFromFile()
+        {
+            List<RssFeedItem> savedFeedItemsList = null;
+            string filename = Settings.Default.SaveFeedItemFileName;
+
+            if (File.Exists(filename))
+            {
+                string json = File.ReadAllText(Settings.Default.SaveFeedItemFileName);
+
+                if (json != null)
+                {
+                    savedFeedItemsList = JsonConvert.DeserializeObject<List<RssFeedItem>>(json);
+                }
+            }
+
+            return savedFeedItemsList;
+        }
+
+        /// <summary>
         /// Saves the feeds to a file
         /// </summary>
         /// <param name="rssFeedList">The RSS feed list.</param>
@@ -46,6 +68,10 @@ namespace RssFeedReader.Services
             }
         }
 
+        /// <summary>
+        /// Saves the feed item to file.
+        /// </summary>
+        /// <param name="rssFeedItem">The RSS feed item.</param>
         public void SaveFeedItemToFile(RssFeedItem rssFeedItem)
         {
             File.WriteAllText(Settings.Default

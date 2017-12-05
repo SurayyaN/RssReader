@@ -26,6 +26,8 @@ namespace RssFeedReader
         private IApplicationFeedManager _applicationFeedManager;
         private ObservableCollection<RssFeed> _rssFeeds;
         private ObservableCollection<RssFeedItem> _rssFeedItems;
+        private ObservableCollection<RssFeedItem> _savedFeedItems;
+        private RssFeedItem _selectedFeedItem;
         private string _url;
 
         /// <summary>
@@ -38,8 +40,9 @@ namespace RssFeedReader
 
             _rssFeeds = new ObservableCollection<RssFeed>();
             _rssFeedItems = new ObservableCollection<RssFeedItem>();
+            _savedFeedItems = new ObservableCollection<RssFeedItem>();
 
-            _applicationFeedManager.Onload(_rssFeeds);
+            _applicationFeedManager.Onload(_rssFeeds, _savedFeedItems);
             _applicationFeedManager.LoadFeedItemToView(_rssFeeds, _rssFeedItems);
         }
 
@@ -59,6 +62,29 @@ namespace RssFeedReader
         public ObservableCollection<RssFeedItem> RssFeedItems
         {
             get { return _rssFeedItems; }
+        }
+
+        /// <summary>
+        /// Gets the saved feed items.
+        /// </summary>
+        /// <value>The saved feed items.</value>
+        public ObservableCollection<RssFeedItem> SavedFeedItems
+        {
+            get { return _savedFeedItems; }
+        }
+
+        /// <summary>
+        /// Gets or sets the selected feed item.
+        /// </summary>
+        /// <value>The selected feed item.</value>
+        public RssFeedItem SelectedFeedItem
+        {
+            get { return _selectedFeedItem; }
+            set
+            {
+                _selectedFeedItem = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("SelectedFeedItem"));
+            }
         }
 
         /// <summary>
@@ -121,6 +147,15 @@ namespace RssFeedReader
         }
 
         /// <summary>
+        /// Gets the save feed iems command.
+        /// </summary>
+        /// <value>The save feed iems command.</value>
+        public ICommand SaveFeedItemsCommand
+        {
+            get { return new DelegateCommand(SaveFeedItem); }
+        }
+
+        /// <summary>
         /// Adds the new feed.
         /// </summary>
         private void AddNewFeed()
@@ -164,6 +199,16 @@ namespace RssFeedReader
             {
                 subscription.IsChecked = false;
             }
+        }
+
+        /// <summary>
+        /// Saves the feed item.
+        /// </summary>
+        private void SaveFeedItem()
+        {
+            _savedFeedItems.Add(_selectedFeedItem);
+
+            _applicationFeedManager.SaveFeedItems(_savedFeedItems);
         }
     }
 }
