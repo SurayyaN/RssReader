@@ -109,7 +109,11 @@
                             <RowDefinition Height="1*" />
                             <RowDefinition Height="*" />
                         </Grid.RowDefinitions>
-                        <TextBox x:Name="TxtRssUrl" Text="{Binding Url}" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Left" Width="888" Background="Black" BorderBrush="#FF303030" Padding="2" Foreground="#FF6E6E6E" />
+                        <TextBox x:Name="TxtRssUrl" Text="{Binding Url, UpdateSourceTrigger=PropertyChanged}" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Left" Width="888" Background="Black" BorderBrush="#FF303030" Padding="2" Foreground="#FF6E6E6E" >
+                            <TextBox.InputBindings>
+                                <KeyBinding Key="Enter" Command="{Binding AddNewFeedCommand}" />
+                            </TextBox.InputBindings>
+                        </TextBox>
                         <Button x:Name="BtnAddNew" Command="{Binding AddNewFeedCommand}" Margin="10, 0, 0, 0" Grid.Row="0" Grid.Column="1" Content="Add New Rss" BorderBrush="Black" TextBlock.Foreground="White">
                             <Button.Background>
                                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
