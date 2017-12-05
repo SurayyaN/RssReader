@@ -3,6 +3,7 @@ using System.Collections.ObjectModel;
 using System.IO;
 using RssFeedReader.Models;
 using RssFeedReader.Properties;
+using Newtonsoft.Json;
 
 namespace RssFeedReader.Services
 {
@@ -43,6 +44,12 @@ namespace RssFeedReader.Services
                     streamWriter.WriteLine(feed.RssUrl);
                 }
             }
+        }
+
+        public void SaveFeedItemToFile(RssFeedItem rssFeedItem)
+        {
+            File.WriteAllText(Settings.Default
+                .SaveFeedItemFileName, JsonConvert.SerializeObject(rssFeedItem, Formatting.Indented));
         }
     }
 }
