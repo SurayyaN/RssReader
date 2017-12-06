@@ -48,7 +48,43 @@
                             </LinearGradientBrush>
                         </Button.Background>
                     </Button>
-                    <ListView x:Name="LvwFeedItems" ItemsSource="{Binding Path=RssFeedItems}" SelectedItem="{Binding Path=SelectedFeedItem}" Margin="10" Grid.Row="2" ScrollViewer.VerticalScrollBarVisibility="Visible" ScrollViewer.CanContentScroll="False" Foreground="LightGray" Background="Black" >
+                    <DataGrid ItemsSource="{Binding Path=RssFeedItems}" SelectedItem="{Binding SelectedFeedItem}" Margin="10" Grid.Row="2" AutoGenerateColumns="False" >
+                        <DataGrid.Columns>
+                            <!--<DataGridTextColumn Header="Save" Binding="{Binding Item} "/>-->
+                            <DataGridTemplateColumn>
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Button Content="Save" Command="{Binding DataContext.SaveFeedItemsCommand, 
+                                                           RelativeSource=
+                                                           {RelativeSource FindAncestor, 
+                                                           AncestorType={x:Type DataGrid}}}" />
+                                        <!--<i:Interaction.Triggers>
+                                                <i:EventTrigger EventName="MouseLeftButtonDown">
+                                                    <i:InvokeCommandAction Command="{Binding 
+                                                           Path=DataContext.SaveFeedItemsCommand, 
+                                                           RelativeSource=
+                                                           {RelativeSource FindAncestor, 
+                                                           AncestorType={x:Type DataGrid}}}" />
+                                                </i:EventTrigger>
+                                            </i:Interaction.Triggers>-->
+                                        <!--</Button>-->
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                            <DataGridTextColumn Header="Website" Binding="{Binding Website}" />
+                            <DataGridTemplateColumn Header="Published Date">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock><Hyperlink NavigateUri="{Binding Item.Links[0].Uri}" RequestNavigate="Hyperlink_RequestNavigate" TextBlock.Foreground="LightGray" TextBlock.FontWeight="Bold" >
+                                            <TextBlock Text="{Binding Item.Title.Text}" Foreground="LightGray"/>
+                                        </Hyperlink></TextBlock>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                            <DataGridTextColumn Header="Published Date" Binding="{Binding Item.PublishDate, StringFormat='{}{0:dd/MM/yyyy}'}" />
+                        </DataGrid.Columns>
+                    </DataGrid>
+                    <!--<ListView x:Name="LvwFeedItems" ItemsSource="{Binding Path=RssFeedItems}" Margin="10" Grid.Row="2" ScrollViewer.VerticalScrollBarVisibility="Visible" ScrollViewer.CanContentScroll="False" Foreground="LightGray" Background="Black" >
                         <ListView.ItemContainerStyle>
                             <Style TargetType="{x:Type ListViewItem}">
                                 <Style.Triggers>
@@ -71,7 +107,13 @@
                                             </Setter.Value>
                                         </Setter>
                                     </Trigger>
+                                    --><!--<Trigger Property="IsKeyboardFocusWithin" Value="True">
+                                        <Setter Property="IsSelected" Value="{Binding Path=SelectedFeedItem}" />
+                                    </Trigger>--><!--
                                 </Style.Triggers>
+                                --><!--<EventSetter Event="PreviewGotKeyboardFocus" Handler="SelectCurrentItem" />-->
+                                <!--<Setter Property="IsSelected" Value="{Binding Mode=TwoWay, Path=SelectedFeedItem}"/>-->
+                                <!--<Setter Property="IsSelected" Value="{Binding SelectedFeedItem, UpdateSourceTrigger=PropertyChanged}"/>--><!--
                             </Style>
                         </ListView.ItemContainerStyle>
                         <ListView.View>
@@ -86,17 +128,19 @@
                                 <GridViewColumn Header="Save" Width="40" >
                                     <GridViewColumn.CellTemplate>
                                         <DataTemplate>
-                                            <TextBlock Text="save">
-                                                <i:Interaction.Triggers>
+                                            --><!--<TextBlock>    
+                                                <i:Interaction.Triggers>    
                                                     <i:EventTrigger EventName="MouseLeftButtonDown">
                                                         <i:InvokeCommandAction Command="{Binding 
                                                            Path=DataContext.SaveFeedItemsCommand, 
                                                            RelativeSource=
                                                            {RelativeSource FindAncestor, 
-                                                           AncestorType={x:Type ListView}}}" />
+                                                           AncestorType={x:Type ListView}}}" CommandParameter="{Binding }" />
                                                     </i:EventTrigger>
                                                 </i:Interaction.Triggers>
-                                            </TextBlock>
+                                                --><!--<TextBlock Text="save"/>--><!--
+                                            </TextBlock>--><!--
+                                            <TextBlock/>
                                         </DataTemplate>
                                     </GridViewColumn.CellTemplate>
                                 </GridViewColumn>
@@ -113,7 +157,7 @@
                                 <GridViewColumn Header="Published Date" Width="100" DisplayMemberBinding="{Binding Item.PublishDate, StringFormat='{}{0:dd/MM/yyyy}'}"/>
                             </GridView>
                         </ListView.View>
-                    </ListView>
+                    </ListView>-->
                 </Grid>
             </TabItem>
             <TabItem Header="Saved Articles" Background="#FF131313" TextBlock.Foreground="LightGray" BorderBrush="#FF1D1D1D">

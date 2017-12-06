@@ -14,7 +14,6 @@ namespace RssFeedReader.Command
     public class DelegateCommand : ICommand
     {
         private readonly Action _action;
-        private readonly Action<object> _actionWithParam;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="DelegateCommand"/> class.
@@ -23,15 +22,6 @@ namespace RssFeedReader.Command
         public DelegateCommand(Action action)
         {
             _action = action;
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="DelegateCommand"/> class.
-        /// </summary>
-        /// <param name="action">The action.</param>
-        public DelegateCommand(Action<object> action)
-        {
-            _actionWithParam = action;
         }
 
         /// <summary>

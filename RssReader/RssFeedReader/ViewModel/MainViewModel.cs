@@ -135,7 +135,7 @@ namespace RssFeedReader
         /// Gets the check all items command.
         /// </summary>
         /// <value>The check all items command.</value>
-        public ICommand CheckAllFeedssCommand
+        public ICommand CheckAllFeedsCommand
         {
             get { return new DelegateCommand(CheckAllFeeds); }
         }
