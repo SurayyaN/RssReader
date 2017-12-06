@@ -6,7 +6,7 @@
         xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
         xmlns:local="clr-namespace:RssFeedReader"
         mc:Ignorable="d"
-        Title="RSS Feed Reader" Height="552.045" Width="1000" Background="Black" TextElement.Foreground="LightGray" TextBlock.Foreground="LightGray" >
+        Title="RSS Feed Reader" Height="582.045" Width="1000" Background="Black" TextElement.Foreground="LightGray" TextBlock.Foreground="LightGray" >
 
     <StackPanel Margin="10,10,10,10">
         <TabControl x:Name="TabRssFeed" Margin="10" Background="#FF131313" BorderBrush="#FF1D1D1D" BorderThickness="3">
@@ -36,9 +36,11 @@
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="1*" />
+                        <RowDefinition Height="1*" />
                         <RowDefinition Height="400" />
                     </Grid.RowDefinitions>
-                    <Button x:Name="BtnRefreshFeed" Command="{Binding RefreshFeedCommand}" Content="Refresh Feed" Grid.Row="0" Margin="10, 10, 10, 0" BorderBrush="Black" TextBlock.Foreground="White" Foreground="White" Padding="0" Focusable="False">
+                    <Label Grid.Row="0" Content="New Feeds" Foreground="LightGray" FontSize="25"/>
+                    <Button x:Name="BtnRefreshFeed" Command="{Binding RefreshFeedCommand}" Content="Refresh Feed" Grid.Row="1" Margin="10, 10, 10, 0" BorderBrush="Black" TextBlock.Foreground="White" Foreground="White" Padding="0" Focusable="False">
                         <Button.Background>
                             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                                 <GradientStop Color="#FF595959"/>
@@ -46,7 +48,7 @@
                             </LinearGradientBrush>
                         </Button.Background>
                     </Button>
-                    <ListView x:Name="LvwFeedItems" ItemsSource="{Binding Path=RssFeedItems}" SelectedItem="{Binding Path=SelectedFeedItem}" Margin="10" Grid.Row="1" ScrollViewer.VerticalScrollBarVisibility="Visible" ScrollViewer.CanContentScroll="False" Foreground="LightGray" Background="Black" >
+                    <ListView x:Name="LvwFeedItems" ItemsSource="{Binding Path=RssFeedItems}" SelectedItem="{Binding Path=SelectedFeedItem}" Margin="10" Grid.Row="2" ScrollViewer.VerticalScrollBarVisibility="Visible" ScrollViewer.CanContentScroll="False" Foreground="LightGray" Background="Black" >
                         <ListView.ItemContainerStyle>
                             <Style TargetType="{x:Type ListViewItem}">
                                 <Style.Triggers>
@@ -88,10 +90,10 @@
                                                 <i:Interaction.Triggers>
                                                     <i:EventTrigger EventName="MouseLeftButtonDown">
                                                         <i:InvokeCommandAction Command="{Binding 
-                                   Path=DataContext.SaveFeedItemsCommand, 
-                                   RelativeSource=
-                                   {RelativeSource FindAncestor, 
-                                   AncestorType={x:Type ListView}}}"/>
+                                                           Path=DataContext.SaveFeedItemsCommand, 
+                                                           RelativeSource=
+                                                           {RelativeSource FindAncestor, 
+                                                           AncestorType={x:Type ListView}}}" />
                                                     </i:EventTrigger>
                                                 </i:Interaction.Triggers>
                                             </TextBlock>
@@ -114,59 +116,103 @@
                     </ListView>
                 </Grid>
             </TabItem>
+            <TabItem Header="Saved Articles" Background="#FF131313" TextBlock.Foreground="LightGray" BorderBrush="#FF1D1D1D">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="1*" />
+                        <RowDefinition Height="1*" />
+                        <RowDefinition Height="1*" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <Label Grid.Row="0" Content="Saved Articles" Foreground="LightGray" FontSize="25"/>
+                    <CheckBox x:Name="CbAllItems" Margin="0, 10, 0, 0" Grid.Row="1" Content="Select / Unselect All" TextBlock.Foreground="LightGray">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="Checked">
+                                <i:InvokeCommandAction Command="{Binding CheckAllFeedItemsCommand}" />
+                            </i:EventTrigger>
+                            <i:EventTrigger EventName="Unchecked">
+                                <i:InvokeCommandAction Command="{Binding UncheckAllFeedItemsCommand}" />
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                    </CheckBox>
+                    <ListBox x:Name="ListboxFeedItems" ItemsSource="{Binding SavedFeedItems}" Margin="0, 10, 0, 0" Grid.Row="2" Grid.Column="0"  Height="350" Background="Black" BorderBrush="#FF131313" Foreground="LightGray">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <Grid>
+                                    <CheckBox IsChecked="{Binding IsChecked}"  TextBlock.Foreground="LightGray">
+                                        <CheckBox.Content>
+                                            <TextBlock Text="{Binding FeedItem.Title.Text}">
+                                                <Hyperlink NavigateUri="{Binding FeedItem.Links[0].uri}" RequestNavigate="Hyperlink_RequestNavigate" TextBlock.Foreground="LightGray" TextBlock.FontWeight="Bold" />
+                                            </TextBlock>
+                                        </CheckBox.Content>
+                                    </CheckBox>
+                                </Grid>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                    <Button x:Name="BtnDeleteArticles" Command="{Binding DeleteSavedFeedItemCommand}" Margin="10, 10, 10, 0" Grid.Row="3" Content="Delete Article" BorderBrush="Black" Foreground="White" >
+                        <Button.Background>
+                            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                <GradientStop Color="Black" Offset="1"/>
+                                <GradientStop Color="#FF595959"/>
+                            </LinearGradientBrush>
+                        </Button.Background>
+                    </Button>
+                </Grid>
+            </TabItem>
             <TabItem Header="Subscriptions" Background="#FF131313" TextBlock.Foreground="LightGray" BorderBrush="#FF1D1D1D">
                 <Grid>
-                    <Grid Margin="10">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="4*" />
-                            <ColumnDefinition Width="*" />
-                        </Grid.ColumnDefinitions>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="1*" />
-                            <RowDefinition Height="1*" />
-                            <RowDefinition Height="*" />
-                        </Grid.RowDefinitions>
-                        <TextBox x:Name="TxtRssUrl" Text="{Binding Url, UpdateSourceTrigger=PropertyChanged}" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Left" Width="888" Background="Black" BorderBrush="#FF303030" Padding="2" Foreground="#FF6E6E6E" >
-                            <TextBox.InputBindings>
-                                <KeyBinding Key="Enter" Command="{Binding AddNewFeedCommand}" />
-                            </TextBox.InputBindings>
-                        </TextBox>
-                        <Button x:Name="BtnAddNew" Command="{Binding AddNewFeedCommand}" Margin="10, 0, 0, 0" Grid.Row="0" Grid.Column="1" Content="Add New Rss" BorderBrush="Black" TextBlock.Foreground="White">
-                            <Button.Background>
-                                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                                    <GradientStop Color="Black" Offset="1"/>
-                                    <GradientStop Color="#FF595959"/>
-                                </LinearGradientBrush>
-                            </Button.Background>
-                        </Button>
-                        <CheckBox x:Name="CbAllItems" Margin="0, 10, 0, 0" Grid.Row="1" Grid.Column="0" Content="Select / Unselect All" TextBlock.Foreground="LightGray">
-                            <i:Interaction.Triggers>
-                                <i:EventTrigger EventName="Checked">
-                                    <i:InvokeCommandAction Command="{Binding CheckAllItemsCommand}" />
-                                </i:EventTrigger>
-                                <i:EventTrigger EventName="Unchecked">
-                                    <i:InvokeCommandAction Command="{Binding UncheckAllItemsCommand}" />
-                                </i:EventTrigger>
-                            </i:Interaction.Triggers>
-                        </CheckBox>
-                        <ListBox x:Name="ListboxFeeds" ItemsSource="{Binding RssFeeds}" Margin="0, 10, 0, 0" Grid.Row="2" Grid.Column="0"  Height="350" Background="Black" BorderBrush="#FF131313" Foreground="LightGray">
-                            <ListBox.ItemTemplate>
-                                <DataTemplate>
-                                    <Grid>
-                                        <CheckBox IsChecked="{Binding IsChecked}" Content="{Binding Feed.Title.Text}" TextBlock.Foreground="LightGray"/>
-                                    </Grid>
-                                </DataTemplate>
-                            </ListBox.ItemTemplate>
-                        </ListBox>
-                        <Button x:Name="BtnDeleteSubscription" Command="{Binding DeleteFeedCommand}" Margin="10, 10, 10, 0" Grid.Row="2" Grid.Column="1" Content="Delete Feed" VerticalAlignment="Bottom" BorderBrush="Black" Foreground="White" >
-                            <Button.Background>
-                                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                                    <GradientStop Color="Black" Offset="1"/>
-                                    <GradientStop Color="#FF595959"/>
-                                </LinearGradientBrush>
-                            </Button.Background>
-                        </Button>
-                    </Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="4*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="1*" />
+                        <RowDefinition Height="1*" />
+                        <RowDefinition Height="1*" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <Label Grid.Row="0" Content="Subscriptions" Foreground="LightGray" FontSize="25"/>
+                    <TextBox x:Name="TxtRssUrl" Text="{Binding Url, UpdateSourceTrigger=PropertyChanged}" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Left" Width="888" Background="Black" BorderBrush="#FF303030" Padding="2" Foreground="#FF6E6E6E" >
+                        <TextBox.InputBindings>
+                            <KeyBinding Key="Enter" Command="{Binding AddNewFeedCommand}" />
+                        </TextBox.InputBindings>
+                    </TextBox>
+                    <Button x:Name="BtnAddNew" Command="{Binding AddNewFeedCommand}" Margin="10, 0, 0, 0" Grid.Row="1" Grid.Column="1" Content="Add New Rss" BorderBrush="Black" TextBlock.Foreground="White">
+                        <Button.Background>
+                            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                <GradientStop Color="Black" Offset="1"/>
+                                <GradientStop Color="#FF595959"/>
+                            </LinearGradientBrush>
+                        </Button.Background>
+                    </Button>
+                    <CheckBox x:Name="CbAllFeeds" Margin="0, 10, 0, 0" Grid.Row="2" Grid.Column="0" Content="Select / Unselect All" TextBlock.Foreground="LightGray">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="Checked">
+                                <i:InvokeCommandAction Command="{Binding CheckAllFeedsCommand}" />
+                            </i:EventTrigger>
+                            <i:EventTrigger EventName="Unchecked">
+                                <i:InvokeCommandAction Command="{Binding UncheckAllFeedsCommand}" />
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                    </CheckBox>
+                    <ListBox x:Name="ListboxFeeds" ItemsSource="{Binding RssFeeds}" Margin="0, 10, 0, 0" Grid.Row="3" Grid.Column="0"  Height="350" Background="Black" BorderBrush="#FF131313" Foreground="LightGray">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <Grid>
+                                    <CheckBox IsChecked="{Binding IsChecked}" Content="{Binding Feed.Title.Text}" TextBlock.Foreground="LightGray"/>
+                                </Grid>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                    <Button x:Name="BtnDeleteSubscription" Command="{Binding DeleteFeedCommand}" Margin="10, 10, 10, 0" Grid.Row="3" Grid.Column="1" Content="Delete Feed" VerticalAlignment="Bottom" BorderBrush="Black" Foreground="White" >
+                        <Button.Background>
+                            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                <GradientStop Color="Black" Offset="1"/>
+                                <GradientStop Color="#FF595959"/>
+                            </LinearGradientBrush>
+                        </Button.Background>
+                    </Button>
                 </Grid>
             </TabItem>
         </TabControl>
