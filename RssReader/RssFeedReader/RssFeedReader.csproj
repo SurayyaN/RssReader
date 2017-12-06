@@ -89,8 +89,12 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Command\DelegateCommand.cs" />
+    <Compile Include="Models\SavedArticle.cs" />
+    <Compile Include="Models\SavedRssFeedItem.cs" />
     <Compile Include="Services\ApplicationFeedManager.cs" />
     <Compile Include="Services\IApplicationFeedManager.cs" />
+    <Compile Include="Services\ISavedFeedItemManager.cs" />
+    <Compile Include="Services\SavedFeedItemManager.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="Services\FeedItemManager.cs" />
     <Compile Include="Services\IFeedItemManager.cs" />

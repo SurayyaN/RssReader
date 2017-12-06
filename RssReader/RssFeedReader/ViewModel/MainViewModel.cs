@@ -26,6 +26,10 @@ namespace RssFeedReader
         private IApplicationFeedManager _applicationFeedManager;
         private ObservableCollection<RssFeed> _rssFeeds;
         private ObservableCollection<RssFeedItem> _rssFeedItems;
+        //private ObservableCollection<RssFeedItem> _savedFeedItems;
+        //private ObservableCollection<SavedRssFeedItem> _savedFeedItems;
+        private ObservableCollection<SavedArticle> _savedArticles;
+        private RssFeedItem _selectedFeedItem;
         private string _url;
 
         /// <summary>
@@ -38,8 +42,13 @@ namespace RssFeedReader
 
             _rssFeeds = new ObservableCollection<RssFeed>();
             _rssFeedItems = new ObservableCollection<RssFeedItem>();
+            //_savedFeedItems = new ObservableCollection<RssFeedItem>();
+            //_savedFeedItems = new ObservableCollection<SavedRssFeedItem>();
+            _savedArticles = new ObservableCollection<SavedArticle>();
 
-            _applicationFeedManager.Onload(_rssFeeds);
+            //_applicationFeedManager.Onload(_rssFeeds, _savedFeedItems);
+            //_applicationFeedManager.Onload(_rssFeeds, _savedFeedItems);
+            _applicationFeedManager.Onload(_rssFeeds, _savedArticles);
             _applicationFeedManager.LoadFeedItemToView(_rssFeeds, _rssFeedItems);
         }
 
@@ -59,6 +68,34 @@ namespace RssFeedReader
         public ObservableCollection<RssFeedItem> RssFeedItems
         {
             get { return _rssFeedItems; }
+        }
+
+        public ObservableCollection<SavedArticle> SavedArticles
+        {
+            get { return _savedArticles; }
+        }
+
+        ///// <summary>
+        ///// Gets the saved feed items.
+        ///// </summary>
+        ///// <value>The saved feed items.</value>
+        //public ObservableCollection<SavedRssFeedItem> SavedFeedItems
+        //{
+        //    get { return _savedFeedItems; }
+        //}
+
+        /// <summary>
+        /// Gets or sets the selected feed item.
+        /// </summary>
+        /// <value>The selected feed item.</value>
+        public RssFeedItem SelectedFeedItem
+        {
+            get { return _selectedFeedItem; }
+            set
+            {
+                _selectedFeedItem = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("SelectedFeedItem"));
+            }
         }
 
         /// <summary>
@@ -106,18 +143,42 @@ namespace RssFeedReader
         /// Gets the check all items command.
         /// </summary>
         /// <value>The check all items command.</value>
-        public ICommand CheckAllItemsCommand
+        public ICommand CheckAllFeedsCommand
         {
-            get { return new DelegateCommand(CheckAllItems); }
+            get { return new DelegateCommand(CheckAllFeeds); }
         }
 
         /// <summary>
         /// Gets the uncheck all items command.
         /// </summary>
         /// <value>The uncheck all items command.</value>
-        public ICommand UncheckAllItemsCommand
+        public ICommand UncheckAllFeedsCommand
         {
-            get { return new DelegateCommand(UncheckAllItems); }
+            get { return new DelegateCommand(UncheckAllFeeds); }
+        }
+
+        /// <summary>
+        /// Gets the save feed iems command.
+        /// </summary>
+        /// <value>The save feed iems command.</value>
+        public ICommand SaveFeedItemsCommand
+        {
+            get { return new DelegateCommand(SaveArticle); }
+        }
+
+        public ICommand DeleteSavedFeedItemCommand
+        {
+            get { return new DelegateCommand(DeleteSavedArticle); }
+        }
+
+        public ICommand CheckAllArticlesCommand
+        {
+            get { return new DelegateCommand(CheckAllArticles); }
+        }
+
+        public ICommand UncheckAllArticlesCommand
+        {
+            get { return new DelegateCommand(UncheckAllArticles); }
         }
 
         /// <summary>
@@ -147,7 +208,7 @@ namespace RssFeedReader
         /// <summary>
         /// Checks all feeds in feed list.
         /// </summary>
-        private void CheckAllItems()
+        private void CheckAllFeeds()
         {
             foreach (RssFeed subscription in _rssFeeds)
             {
@@ -158,12 +219,69 @@ namespace RssFeedReader
         /// <summary>
         /// Unchecks all feeds in feed list.
         /// </summary>
-        private void UncheckAllItems()
+        private void UncheckAllFeeds()
         {
             foreach (RssFeed subscription in _rssFeeds)
             {
                 subscription.IsChecked = false;
             }
+        }
+
+        //private void CheckAllFeedItems()
+        //{
+        //    foreach (SavedRssFeedItem feedItems in _savedFeedItems)
+        //    {
+        //        feedItems.IsChecked = true;
+        //    }
+        //}
+
+        private void CheckAllArticles()
+        {
+            foreach (SavedArticle articles in _savedArticles)
+            {
+                articles.IsChecked = true;
+            }
+        }
+
+        //private void UncheckAllFeedItems()
+        //{
+        //    foreach (SavedRssFeedItem feedItems in _savedFeedItems)
+        //    {
+        //        feedItems.IsChecked = false;
+        //    }
+        //}
+
+        private void UncheckAllArticles()
+        {
+            foreach (SavedArticle article in _savedArticles)
+            {
+                article.IsChecked = false;
+            }
+        }
+
+        ///// <summary>
+        ///// Saves the feed item.
+        ///// </summary>
+        //private void SaveFeedItem()
+        //{
+        //    _savedFeedItems.Add(_selectedFeedItem);
+
+        //    _applicationFeedManager.SaveFeedItems(_savedFeedItems);
+        //}
+
+        //private void SaveFeedItem()
+        //{
+        //    _applicationFeedManager.SaveFeedItems(_savedFeedItems, _selectedFeedItem);
+        //}
+
+        private void SaveArticle()
+        {
+            _applicationFeedManager.SaveArticles(_savedArticles, _selectedFeedItem);
+        }
+
+        private void DeleteSavedArticle()
+        {
+            _applicationFeedManager.DeleteArticles(_savedArticles);
         }
     }
 }

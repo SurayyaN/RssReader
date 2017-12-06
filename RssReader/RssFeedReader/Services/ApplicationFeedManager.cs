@@ -18,6 +18,7 @@ namespace RssFeedReader.Services
     {
         private IFeedManager _feedManager;
         private IFeedItemManager _feedItemManager;
+        private ISavedFeedItemManager _savedFeedItemManager;
         private ISaveUtility _saveUtility;
 
         /// <summary>
@@ -26,18 +27,21 @@ namespace RssFeedReader.Services
         /// <param name="feedManager">The feed manager.</param>
         /// <param name="feedItemManager">The feed item manager.</param>
         /// <param name="saveUtility">The save utility.</param>
-        public ApplicationFeedManager(IFeedManager feedManager, IFeedItemManager feedItemManager, ISaveUtility saveUtility)
+        public ApplicationFeedManager(IFeedManager feedManager, IFeedItemManager feedItemManager, ISavedFeedItemManager savedFeedItemManager, ISaveUtility saveUtility)
         {
             _feedManager = feedManager;
             _feedItemManager = feedItemManager;
+            _savedFeedItemManager = savedFeedItemManager;
             _saveUtility = saveUtility;
         }
 
         /// <summary>
-        /// loads the feeds from the saved rss list on startup
+        /// loads the feeds from the saved rss list and saved feed items on startup
         /// </summary>
         /// <param name="rssFeedList">The RSS feed list.</param>
-        public void Onload(ObservableCollection<RssFeed> rssFeedList)
+        //public void Onload(ObservableCollection<RssFeed> rssFeedList, ObservableCollection<RssFeedItem> savedFeedItemsList)
+        //public void Onload(ObservableCollection<RssFeed> rssFeedList, ObservableCollection<SavedRssFeedItem> savedFeedItemsList)
+        public void Onload(ObservableCollection<RssFeed> rssFeedList, ObservableCollection<SavedArticle> savedArticlesList)
         {
             if (_saveUtility.LoadFromFile() != null)
             {
@@ -49,6 +53,30 @@ namespace RssFeedReader.Services
                     {
                         _feedManager.AddFeed(rssFeedList, new RssFeed() { Feed = feed, RssUrl = uri });
                     }
+                }
+            }
+
+            ////if (_saveUtility.LoadFeedItemsFromFile() != null)
+            ////{
+            ////    foreach (RssFeedItem feedItem in _saveUtility.LoadFeedItemsFromFile())
+            ////    {
+            ////        savedFeedItemsList.Add(feedItem);
+            ////    }
+            ////}
+
+            //if (_saveUtility.LoadFeedItemsFromFile() != null)
+            //{
+            //    foreach (SavedRssFeedItem savedItem in savedFeedItemsList)
+            //    {
+            //        savedFeedItemsList.Add(savedItem);
+            //    }
+            //}
+
+            if (_saveUtility.LoadArticlesFromFile() != null)
+            {
+                foreach (SavedArticle article in _saveUtility.LoadArticlesFromFile())
+                {
+                    savedArticlesList.Add(article);
                 }
             }
         }
@@ -111,6 +139,68 @@ namespace RssFeedReader.Services
             }
 
             SortList(rssFeedItems);
+        }
+
+        /// <summary>
+        /// Saves the feed items.
+        /// </summary>
+        /// <param name="feedItemsToSave">The feed items to save.</param>
+        //public void SaveFeedItems(ObservableCollection<RssFeedItem> feedItemsToSave)
+        //{
+        //    foreach (RssFeedItem feedItem in feedItemsToSave)
+        //    {
+        //        _saveUtility.SaveFeedItemToFile(feedItem);
+        //    }
+        //    //_saveUtility.SaveFeedItemToFile(feedItemsToSave);
+        //}
+
+        //public void SaveFeedItems(ObservableCollection<SavedRssFeedItem> savedFeedItemsList, RssFeedItem feedItem)
+        //{
+        //    _savedFeedItemManager.AddFeedItem(savedFeedItemsList, feedItem);
+        //}
+
+        public void SaveArticles(ObservableCollection<SavedArticle> savedArticleList, RssFeedItem feedItem)
+        {
+            _savedFeedItemManager.AddArticle(savedArticleList, feedItem);
+        }
+
+        //public void AddSavedFeedItem(ObservableCollection<SavedRssFeedItem> savedFeedItemsList, SavedRssFeedItem feedItem)
+        //{
+        //    _savedFeedItemManager.AddFeed(savedFeedItemsList, feedItem);
+        //}
+
+        //public void DeleteFeedItems(ObservableCollection<SavedRssFeedItem> savedFeedItemList)
+        //{
+        //    List<SavedRssFeedItem> itemsToBeDeleted = new List<SavedRssFeedItem>();
+
+        //    foreach (SavedRssFeedItem item in savedFeedItemList.Where(c => c.IsChecked))
+        //    {
+        //        itemsToBeDeleted.Add(item);
+        //    }
+
+        //    foreach (SavedRssFeedItem item in itemsToBeDeleted)
+        //    {
+        //        _savedFeedItemManager.RemoveSavedFeedItem(savedFeedItemList, item);
+        //    }
+
+        //    _saveUtility.SaveFeedItemListToFile(savedFeedItemList);
+        //}
+
+        public void DeleteArticles(ObservableCollection<SavedArticle> savedArticleList)
+        {
+            List<SavedArticle> articlesToBeDeleted = new List<SavedArticle>();
+
+            foreach (SavedArticle article in savedArticleList.Where(c => c.IsChecked))
+            {
+                articlesToBeDeleted.Add(article);
+            }
+
+            foreach (SavedArticle item in articlesToBeDeleted)
+            {
+                _savedFeedItemManager.RemoveSavedFeedItem(savedArticleList, item);
+            }
+
+            _saveUtility.SaveArticlesToFile(savedArticleList);
         }
 
         /// <summary>
