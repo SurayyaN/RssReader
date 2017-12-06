@@ -27,7 +27,7 @@ namespace RssFeedReader
             IUnityContainer container = new UnityContainer();
 
             container.RegisterType<ISaveUtility, SaveUtility>();
-            container.RegisterType<ISavedFeedItemManager, SavedFeedItemManager>();
+            container.RegisterType<ISavedArticlesManager, SavedArticlesManager>();
             container.RegisterType<IFeedItemManager, FeedItemManager>();
             container.RegisterType<IFeedManager, FeedManager>();
             container.RegisterType<IApplicationFeedManager, ApplicationFeedManager>();

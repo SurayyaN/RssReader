@@ -38,12 +38,12 @@ namespace RssFeedReader.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("c:\\Rss Feed Items.json")]
-        public string SaveFeedItemFileName {
+        public string SaveArticleFileName {
             get {
-                return ((string)(this["SaveFeedItemFileName"]));
+                return ((string)(this["SaveArticleFileName"]));
             }
             set {
-                this["SaveFeedItemFileName"] = value;
+                this["SaveArticleFileName"] = value;
             }
         }
     }

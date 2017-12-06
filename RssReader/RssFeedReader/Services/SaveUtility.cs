@@ -31,54 +31,18 @@ namespace RssFeedReader.Services
             return feeds;
         }
 
-        ///// <summary>
-        ///// Loads the feed items from file.
-        ///// </summary>
-        ///// <returns>List&lt;RssFeedItem&gt;.</returns>
-        //public List<RssFeedItem> LoadFeedItemsFromFile()
-        //{
-        //    List<RssFeedItem> savedFeedItemsList = null;
-        //    string filename = Settings.Default.SaveFeedItemFileName;
-
-        //    if (File.Exists(filename))
-        //    {
-        //        string json = File.ReadAllText(Settings.Default.SaveFeedItemFileName);
-
-        //        if (json != null)
-        //        {
-        //            savedFeedItemsList = JsonConvert.DeserializeObject<List<RssFeedItem>>(json);
-        //        }
-        //    }
-
-        //    return savedFeedItemsList;
-        //}
-
-        //public List<SavedRssFeedItem> LoadFeedItemsFromFile()
-        //{
-        //    List<SavedRssFeedItem> savedFeedItemsList = null;
-        //    string filename = Settings.Default.SaveFeedItemFileName;
-
-        //    if (File.Exists(filename))
-        //    {
-        //        string json = File.ReadAllText(Settings.Default.SaveFeedItemFileName);
-
-        //        if (json != null)
-        //        {
-        //            savedFeedItemsList = JsonConvert.DeserializeObject<List<SavedRssFeedItem>>(json);
-        //        }
-        //    }
-
-        //    return savedFeedItemsList;
-        //}
-
+        /// <summary>
+        /// Loads the articles from file.
+        /// </summary>
+        /// <returns>List&lt;SavedArticle&gt;.</returns>
         public List<SavedArticle> LoadArticlesFromFile()
         {
             List<SavedArticle> savedArticlesList = null;
-            string filename = Settings.Default.SaveFeedItemFileName;
+            string filename = Settings.Default.SaveArticleFileName;
 
             if (File.Exists(filename))
             {
-                string json = File.ReadAllText(Settings.Default.SaveFeedItemFileName);
+                string json = File.ReadAllText(Settings.Default.SaveArticleFileName);
 
                 if (json != null)
                 {
@@ -104,39 +68,17 @@ namespace RssFeedReader.Services
             }
         }
 
-        ///// <summary>
-        ///// Saves the feed item to file.
-        ///// </summary>
-        ///// <param name="rssFeedItem">The RSS feed item.</param>
-        //public void SaveFeedItemToFile(RssFeedItem rssFeedItem)
-        //{
-        //    File.WriteAllText(Settings.Default
-        //        .SaveFeedItemFileName, JsonConvert.SerializeObject(rssFeedItem, Formatting.Indented));
-        //}
-
-        //public void SaveFeedItemToFile(SavedRssFeedItem rssFeedItem)
-        //{
-        //    File.WriteAllText(Settings.Default
-        //        .SaveFeedItemFileName, JsonConvert.SerializeObject(rssFeedItem, Formatting.Indented));
-        //}
-
-        //public void SaveFeedItemListToFile(ObservableCollection<SavedRssFeedItem> savedFeedItemList)
-        //{
-        //    string json = JsonConvert.SerializeObject(savedFeedItemList, Formatting.Indented);
-
-        //    if (json != null)
-        //    {
-        //        File.WriteAllText(Settings.Default.SaveFeedItemFileName, json);
-        //    }
-        //}
-
+        /// <summary>
+        /// Saves the articles to file.
+        /// </summary>
+        /// <param name="savedArticlesList">The saved articles list.</param>
         public void SaveArticlesToFile(ObservableCollection<SavedArticle> savedArticlesList)
         {
             string json = JsonConvert.SerializeObject(savedArticlesList, Formatting.Indented);
 
             if (json != null)
             {
-                File.WriteAllText(Settings.Default.SaveFeedItemFileName, json);
+                File.WriteAllText(Settings.Default.SaveArticleFileName, json);
             }
         }
     }

@@ -15,14 +15,10 @@ namespace RssFeedReader.Services
         /// <returns>List&lt;System.String&gt;.</returns>
         List<string> LoadFromFile();
 
-        ///// <summary>
-        ///// Loads the feed items from file.
-        ///// </summary>
-        ///// <returns>List&lt;RssFeedItem&gt;.</returns>
-        //List<RssFeedItem> LoadFeedItemsFromFile();
-
-        //List<SavedRssFeedItem> LoadFeedItemsFromFile();
-
+        /// <summary>
+        /// Loads the articles from file.
+        /// </summary>
+        /// <returns>List&lt;SavedArticle&gt;.</returns>
         List<SavedArticle> LoadArticlesFromFile();
 
         /// <summary>
@@ -31,16 +27,10 @@ namespace RssFeedReader.Services
         /// <param name="rssFeedList">The RSS feed list.</param>
         void SaveToFile(ObservableCollection<RssFeed> rssFeedList);
 
-        ///// <summary>
-        ///// Saves the feed item to file.
-        ///// </summary>
-        ///// <param name="rssFeedItem">The RSS feed item.</param>
-        //void SaveFeedItemToFile(RssFeedItem rssFeedItem);
-
-        //void SaveFeedItemToFile(SavedRssFeedItem rssFeedItem);
-
-        //void SaveFeedItemListToFile(ObservableCollection<SavedRssFeedItem> savedFeedItemList);
-
+        /// <summary>
+        /// Saves the articles to file.
+        /// </summary>
+        /// <param name="savedArticlesList">The saved articles list.</param>
         void SaveArticlesToFile(ObservableCollection<SavedArticle> savedArticlesList);
     }
 }

@@ -9,13 +9,10 @@ namespace RssFeedReader.Services
     public interface IApplicationFeedManager
     {
         /// <summary>
-        /// loads the feeds from the saved rss list and saved feed items on startup
+        /// Onloads the specified RSS feed list.
         /// </summary>
         /// <param name="rssFeedList">The RSS feed list.</param>
-        //void Onload(ObservableCollection<RssFeed> rssFeedList, ObservableCollection<RssFeedItem> savedFeedItemsList);
-
-        //void Onload(ObservableCollection<RssFeed> rssFeedList, ObservableCollection<SavedRssFeedItem> savedFeedItemsList);
-
+        /// <param name="savedArticlesList">The saved articles list.</param>
         void Onload(ObservableCollection<RssFeed> rssFeedList, ObservableCollection<SavedArticle> savedArticlesList);
 
         /// <summary>
@@ -42,18 +39,16 @@ namespace RssFeedReader.Services
                 ObservableCollection<RssFeedItem> rssFeedItems);
 
         /// <summary>
-        /// Saves the feed items.
+        /// Saves the articles.
         /// </summary>
-        /// <param name="feedItemsToSave">The feed items to save.</param>
-        //void SaveFeedItems(ObservableCollection<RssFeedItem> feedItemsToSave);
-
-        //void SaveFeedItems(ObservableCollection<SavedRssFeedItem> savedFeedItemsList, RssFeedItem feedItem);
-
+        /// <param name="savedArticleList">The saved article list.</param>
+        /// <param name="feedItem">The feed item.</param>
         void SaveArticles(ObservableCollection<SavedArticle> savedArticleList, RssFeedItem feedItem);
 
-        //void DeleteFeedItems(ObservableCollection<SavedRssFeedItem> savedFeedItemList);
-
+        /// <summary>
+        /// Deletes the articles.
+        /// </summary>
+        /// <param name="savedArticleList">The saved article list.</param>
         void DeleteArticles(ObservableCollection<SavedArticle> savedArticleList);
-
     }
 }
