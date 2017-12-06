@@ -21,7 +21,9 @@ namespace RssFeedReader.Services
         ///// <returns>List&lt;RssFeedItem&gt;.</returns>
         //List<RssFeedItem> LoadFeedItemsFromFile();
 
-        List<SavedRssFeedItem> LoadFeedItemsFromFile();
+        //List<SavedRssFeedItem> LoadFeedItemsFromFile();
+
+        List<SavedArticle> LoadArticlesFromFile();
 
         /// <summary>
         /// Saves the feeds to a file
@@ -37,6 +39,8 @@ namespace RssFeedReader.Services
 
         //void SaveFeedItemToFile(SavedRssFeedItem rssFeedItem);
 
-        void SaveFeedItemListToFile(ObservableCollection<SavedRssFeedItem> savedFeedItemList);
+        //void SaveFeedItemListToFile(ObservableCollection<SavedRssFeedItem> savedFeedItemList);
+
+        void SaveArticlesToFile(ObservableCollection<SavedArticle> savedArticlesList);
     }
 }

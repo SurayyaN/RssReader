@@ -40,7 +40,8 @@ namespace RssFeedReader.Services
         /// </summary>
         /// <param name="rssFeedList">The RSS feed list.</param>
         //public void Onload(ObservableCollection<RssFeed> rssFeedList, ObservableCollection<RssFeedItem> savedFeedItemsList)
-        public void Onload(ObservableCollection<RssFeed> rssFeedList, ObservableCollection<SavedRssFeedItem> savedFeedItemsList)
+        //public void Onload(ObservableCollection<RssFeed> rssFeedList, ObservableCollection<SavedRssFeedItem> savedFeedItemsList)
+        public void Onload(ObservableCollection<RssFeed> rssFeedList, ObservableCollection<SavedArticle> savedArticlesList)
         {
             if (_saveUtility.LoadFromFile() != null)
             {
@@ -63,11 +64,19 @@ namespace RssFeedReader.Services
             ////    }
             ////}
 
-            if (_saveUtility.LoadFeedItemsFromFile() != null)
+            //if (_saveUtility.LoadFeedItemsFromFile() != null)
+            //{
+            //    foreach (SavedRssFeedItem savedItem in savedFeedItemsList)
+            //    {
+            //        savedFeedItemsList.Add(savedItem);
+            //    }
+            //}
+
+            if (_saveUtility.LoadArticlesFromFile() != null)
             {
-                foreach (SavedRssFeedItem savedItem in savedFeedItemsList)
+                foreach (SavedArticle article in _saveUtility.LoadArticlesFromFile())
                 {
-                    savedFeedItemsList.Add(savedItem);
+                    savedArticlesList.Add(article);
                 }
             }
         }
@@ -145,9 +154,14 @@ namespace RssFeedReader.Services
         //    //_saveUtility.SaveFeedItemToFile(feedItemsToSave);
         //}
 
-        public void SaveFeedItems(ObservableCollection<SavedRssFeedItem> savedFeedItemsList, RssFeedItem feedItem)
+        //public void SaveFeedItems(ObservableCollection<SavedRssFeedItem> savedFeedItemsList, RssFeedItem feedItem)
+        //{
+        //    _savedFeedItemManager.AddFeedItem(savedFeedItemsList, feedItem);
+        //}
+
+        public void SaveArticles(ObservableCollection<SavedArticle> savedArticleList, RssFeedItem feedItem)
         {
-            _savedFeedItemManager.AddFeedItem(savedFeedItemsList, feedItem);
+            _savedFeedItemManager.AddArticle(savedArticleList, feedItem);
         }
 
         //public void AddSavedFeedItem(ObservableCollection<SavedRssFeedItem> savedFeedItemsList, SavedRssFeedItem feedItem)
@@ -155,21 +169,38 @@ namespace RssFeedReader.Services
         //    _savedFeedItemManager.AddFeed(savedFeedItemsList, feedItem);
         //}
 
-        public void DeleteFeedItems(ObservableCollection<SavedRssFeedItem> savedFeedItemList)
+        //public void DeleteFeedItems(ObservableCollection<SavedRssFeedItem> savedFeedItemList)
+        //{
+        //    List<SavedRssFeedItem> itemsToBeDeleted = new List<SavedRssFeedItem>();
+
+        //    foreach (SavedRssFeedItem item in savedFeedItemList.Where(c => c.IsChecked))
+        //    {
+        //        itemsToBeDeleted.Add(item);
+        //    }
+
+        //    foreach (SavedRssFeedItem item in itemsToBeDeleted)
+        //    {
+        //        _savedFeedItemManager.RemoveSavedFeedItem(savedFeedItemList, item);
+        //    }
+
+        //    _saveUtility.SaveFeedItemListToFile(savedFeedItemList);
+        //}
+
+        public void DeleteArticles(ObservableCollection<SavedArticle> savedArticleList)
         {
-            List<SavedRssFeedItem> itemsToBeDeleted = new List<SavedRssFeedItem>();
+            List<SavedArticle> articlesToBeDeleted = new List<SavedArticle>();
 
-            foreach (SavedRssFeedItem item in savedFeedItemList.Where(c => c.IsChecked))
+            foreach (SavedArticle article in savedArticleList.Where(c => c.IsChecked))
             {
-                itemsToBeDeleted.Add(item);
+                articlesToBeDeleted.Add(article);
             }
 
-            foreach (SavedRssFeedItem item in itemsToBeDeleted)
+            foreach (SavedArticle item in articlesToBeDeleted)
             {
-                _savedFeedItemManager.RemoveSavedFeedItem(savedFeedItemList, item);
+                _savedFeedItemManager.RemoveSavedFeedItem(savedArticleList, item);
             }
 
-            _saveUtility.SaveFeedItemListToFile(savedFeedItemList);
+            _saveUtility.SaveArticlesToFile(savedArticleList);
         }
 
         /// <summary>

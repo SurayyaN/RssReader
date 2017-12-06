@@ -20,11 +20,34 @@ namespace RssFeedReader.Services
             _saveUtility = saveUtility;
         }
 
-        public void AddFeedItem(ObservableCollection<SavedRssFeedItem> savedFeedItemList, RssFeedItem savedFeedItem)
+        //public void AddFeedItem(ObservableCollection<SavedRssFeedItem> savedFeedItemList, RssFeedItem savedFeedItem)
+        //{
+        //    if (savedFeedItemList.Count() != 0)
+        //    {
+        //        bool exist = savedFeedItemList.Any(c => c.FeedItem.Title.Text == savedFeedItem.Item.Title.Text);
+
+        //        if (exist)
+        //        {
+        //            MessageBox.Show(Resources.ERROR_LOADING_FEED_MESSAGE, Resources.MESSAGEBOX_ALERT, MessageBoxButton.OK, MessageBoxImage.Information);
+        //        }
+
+        //        else
+        //            savedFeedItemList.Add(new SavedRssFeedItem(savedFeedItem.Item));
+        //    }
+
+        //    else
+        //    {
+        //        savedFeedItemList.Add(new SavedRssFeedItem(savedFeedItem.Item));
+        //    }
+
+        //    _saveUtility.SaveFeedItemListToFile(savedFeedItemList);
+        //}
+
+        public void AddArticle(ObservableCollection<SavedArticle> savedArticleList, RssFeedItem savedFeedItem)
         {
-            if (savedFeedItemList.Count() != 0)
+            if (savedArticleList.Count() != 0)
             {
-                bool exist = savedFeedItemList.Any(c => c.FeedItem.Title.Text == savedFeedItem.Item.Title.Text);
+                bool exist = savedArticleList.Any(c => c.Title == savedFeedItem.Item.Title.Text);
 
                 if (exist)
                 {
@@ -32,20 +55,25 @@ namespace RssFeedReader.Services
                 }
 
                 else
-                    savedFeedItemList.Add(new SavedRssFeedItem(savedFeedItem.Item));
+                    savedArticleList.Add(new SavedArticle(savedFeedItem.Item.Title.Text, savedFeedItem.Item.Links[0].Uri));
             }
 
             else
             {
-                savedFeedItemList.Add(new SavedRssFeedItem(savedFeedItem.Item));
+                savedArticleList.Add(new SavedArticle(savedFeedItem.Item.Title.Text, savedFeedItem.Item.Links[0].Uri));
             }
 
-            _saveUtility.SaveFeedItemListToFile(savedFeedItemList);
+            _saveUtility.SaveArticlesToFile(savedArticleList);
         }
 
-        public void RemoveSavedFeedItem(ObservableCollection<SavedRssFeedItem> savedFeedItemList, SavedRssFeedItem savedFeedItem)
+        //public void RemoveSavedFeedItem(ObservableCollection<SavedRssFeedItem> savedFeedItemList, SavedRssFeedItem savedFeedItem)
+        //{
+        //    savedFeedItemList.Remove(savedFeedItem);
+        //}
+
+        public void RemoveSavedFeedItem(ObservableCollection<SavedArticle> savedArticleList, SavedArticle savedArticle)
         {
-            savedFeedItemList.Remove(savedFeedItem);
+            savedArticleList.Remove(savedArticle);
         }
     }
 }

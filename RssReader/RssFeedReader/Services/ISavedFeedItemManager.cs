@@ -10,8 +10,12 @@ namespace RssFeedReader.Services
 {
     public interface ISavedFeedItemManager
     {
-        void AddFeedItem(ObservableCollection<SavedRssFeedItem> savedFeedItemList, RssFeedItem savedFeedItem);
+        //void AddFeedItem(ObservableCollection<SavedRssFeedItem> savedFeedItemList, RssFeedItem savedFeedItem);
 
-        void RemoveSavedFeedItem(ObservableCollection<SavedRssFeedItem> savedFeedItemList, SavedRssFeedItem savedFeedItem);
+        //void RemoveSavedFeedItem(ObservableCollection<SavedRssFeedItem> savedFeedItemList, SavedRssFeedItem savedFeedItem);
+
+        void AddArticle(ObservableCollection<SavedArticle> savedArticleList, RssFeedItem savedFeedItem);
+
+        void RemoveSavedFeedItem(ObservableCollection<SavedArticle> savedArticleList, SavedArticle savedArticle);
     }
 }

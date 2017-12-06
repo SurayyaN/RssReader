@@ -53,9 +53,27 @@ namespace RssFeedReader.Services
         //    return savedFeedItemsList;
         //}
 
-        public List<SavedRssFeedItem> LoadFeedItemsFromFile()
+        //public List<SavedRssFeedItem> LoadFeedItemsFromFile()
+        //{
+        //    List<SavedRssFeedItem> savedFeedItemsList = null;
+        //    string filename = Settings.Default.SaveFeedItemFileName;
+
+        //    if (File.Exists(filename))
+        //    {
+        //        string json = File.ReadAllText(Settings.Default.SaveFeedItemFileName);
+
+        //        if (json != null)
+        //        {
+        //            savedFeedItemsList = JsonConvert.DeserializeObject<List<SavedRssFeedItem>>(json);
+        //        }
+        //    }
+
+        //    return savedFeedItemsList;
+        //}
+
+        public List<SavedArticle> LoadArticlesFromFile()
         {
-            List<SavedRssFeedItem> savedFeedItemsList = null;
+            List<SavedArticle> savedArticlesList = null;
             string filename = Settings.Default.SaveFeedItemFileName;
 
             if (File.Exists(filename))
@@ -64,11 +82,11 @@ namespace RssFeedReader.Services
 
                 if (json != null)
                 {
-                    savedFeedItemsList = JsonConvert.DeserializeObject<List<SavedRssFeedItem>>(json);
+                    savedArticlesList = JsonConvert.DeserializeObject<List<SavedArticle>>(json);
                 }
             }
 
-            return savedFeedItemsList;
+            return savedArticlesList;
         }
 
         /// <summary>
@@ -102,9 +120,19 @@ namespace RssFeedReader.Services
         //        .SaveFeedItemFileName, JsonConvert.SerializeObject(rssFeedItem, Formatting.Indented));
         //}
 
-        public void SaveFeedItemListToFile(ObservableCollection<SavedRssFeedItem> savedFeedItemList)
+        //public void SaveFeedItemListToFile(ObservableCollection<SavedRssFeedItem> savedFeedItemList)
+        //{
+        //    string json = JsonConvert.SerializeObject(savedFeedItemList, Formatting.Indented);
+
+        //    if (json != null)
+        //    {
+        //        File.WriteAllText(Settings.Default.SaveFeedItemFileName, json);
+        //    }
+        //}
+
+        public void SaveArticlesToFile(ObservableCollection<SavedArticle> savedArticlesList)
         {
-            string json = JsonConvert.SerializeObject(savedFeedItemList, Formatting.Indented);
+            string json = JsonConvert.SerializeObject(savedArticlesList, Formatting.Indented);
 
             if (json != null)
             {

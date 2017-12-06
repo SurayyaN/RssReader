@@ -27,7 +27,8 @@ namespace RssFeedReader
         private ObservableCollection<RssFeed> _rssFeeds;
         private ObservableCollection<RssFeedItem> _rssFeedItems;
         //private ObservableCollection<RssFeedItem> _savedFeedItems;
-        private ObservableCollection<SavedRssFeedItem> _savedFeedItems;
+        //private ObservableCollection<SavedRssFeedItem> _savedFeedItems;
+        private ObservableCollection<SavedArticle> _savedArticles;
         private RssFeedItem _selectedFeedItem;
         private string _url;
 
@@ -42,10 +43,12 @@ namespace RssFeedReader
             _rssFeeds = new ObservableCollection<RssFeed>();
             _rssFeedItems = new ObservableCollection<RssFeedItem>();
             //_savedFeedItems = new ObservableCollection<RssFeedItem>();
-            _savedFeedItems = new ObservableCollection<SavedRssFeedItem>();
+            //_savedFeedItems = new ObservableCollection<SavedRssFeedItem>();
+            _savedArticles = new ObservableCollection<SavedArticle>();
 
             //_applicationFeedManager.Onload(_rssFeeds, _savedFeedItems);
-            _applicationFeedManager.Onload(_rssFeeds, _savedFeedItems);
+            //_applicationFeedManager.Onload(_rssFeeds, _savedFeedItems);
+            _applicationFeedManager.Onload(_rssFeeds, _savedArticles);
             _applicationFeedManager.LoadFeedItemToView(_rssFeeds, _rssFeedItems);
         }
 
@@ -67,14 +70,19 @@ namespace RssFeedReader
             get { return _rssFeedItems; }
         }
 
-        /// <summary>
-        /// Gets the saved feed items.
-        /// </summary>
-        /// <value>The saved feed items.</value>
-        public ObservableCollection<SavedRssFeedItem> SavedFeedItems
+        public ObservableCollection<SavedArticle> SavedArticles
         {
-            get { return _savedFeedItems; }
+            get { return _savedArticles; }
         }
+
+        ///// <summary>
+        ///// Gets the saved feed items.
+        ///// </summary>
+        ///// <value>The saved feed items.</value>
+        //public ObservableCollection<SavedRssFeedItem> SavedFeedItems
+        //{
+        //    get { return _savedFeedItems; }
+        //}
 
         /// <summary>
         /// Gets or sets the selected feed item.
@@ -155,22 +163,22 @@ namespace RssFeedReader
         /// <value>The save feed iems command.</value>
         public ICommand SaveFeedItemsCommand
         {
-            get { return new DelegateCommand(SaveFeedItem); }
+            get { return new DelegateCommand(SaveArticle); }
         }
 
         public ICommand DeleteSavedFeedItemCommand
         {
-            get { return new DelegateCommand(DeleteSavedFeedItems); }
+            get { return new DelegateCommand(DeleteSavedArticle); }
         }
 
-        public ICommand CheckAllFeedItemsCommand
+        public ICommand CheckAllArticlesCommand
         {
-            get { return new DelegateCommand(CheckAllFeedItems); }
+            get { return new DelegateCommand(CheckAllArticles); }
         }
 
-        public ICommand UncheckAllFeedItemsCommand
+        public ICommand UncheckAllArticlesCommand
         {
-            get { return new DelegateCommand(UncheckAllFeedItems); }
+            get { return new DelegateCommand(UncheckAllArticles); }
         }
 
         /// <summary>
@@ -219,19 +227,35 @@ namespace RssFeedReader
             }
         }
 
-        private void CheckAllFeedItems()
+        //private void CheckAllFeedItems()
+        //{
+        //    foreach (SavedRssFeedItem feedItems in _savedFeedItems)
+        //    {
+        //        feedItems.IsChecked = true;
+        //    }
+        //}
+
+        private void CheckAllArticles()
         {
-            foreach (SavedRssFeedItem feedItems in _savedFeedItems)
+            foreach (SavedArticle articles in _savedArticles)
             {
-                feedItems.IsChecked = true;
+                articles.IsChecked = true;
             }
         }
 
-        private void UncheckAllFeedItems()
+        //private void UncheckAllFeedItems()
+        //{
+        //    foreach (SavedRssFeedItem feedItems in _savedFeedItems)
+        //    {
+        //        feedItems.IsChecked = false;
+        //    }
+        //}
+
+        private void UncheckAllArticles()
         {
-            foreach (SavedRssFeedItem feedItems in _savedFeedItems)
+            foreach (SavedArticle article in _savedArticles)
             {
-                feedItems.IsChecked = false;
+                article.IsChecked = false;
             }
         }
 
@@ -245,14 +269,19 @@ namespace RssFeedReader
         //    _applicationFeedManager.SaveFeedItems(_savedFeedItems);
         //}
 
-        private void SaveFeedItem()
+        //private void SaveFeedItem()
+        //{
+        //    _applicationFeedManager.SaveFeedItems(_savedFeedItems, _selectedFeedItem);
+        //}
+
+        private void SaveArticle()
         {
-            _applicationFeedManager.SaveFeedItems(_savedFeedItems, _selectedFeedItem);
+            _applicationFeedManager.SaveArticles(_savedArticles, _selectedFeedItem);
         }
 
-        private void DeleteSavedFeedItems()
+        private void DeleteSavedArticle()
         {
-            _applicationFeedManager.DeleteFeedItems(_savedFeedItems);
+            _applicationFeedManager.DeleteArticles(_savedArticles);
         }
     }
 }

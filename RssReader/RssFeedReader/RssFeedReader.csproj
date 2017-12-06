@@ -89,7 +89,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Command\DelegateCommand.cs" />
-    <Compile Include="Command\DelegateCommandWithParameter.cs" />
+    <Compile Include="Models\SavedArticle.cs" />
     <Compile Include="Models\SavedRssFeedItem.cs" />
     <Compile Include="Services\ApplicationFeedManager.cs" />
     <Compile Include="Services\IApplicationFeedManager.cs" />
