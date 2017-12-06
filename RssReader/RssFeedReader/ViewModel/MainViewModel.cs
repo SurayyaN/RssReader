@@ -146,7 +146,7 @@ namespace RssFeedReader
         /// Gets the save feed iems command.
         /// </summary>
         /// <value>The save feed iems command.</value>
-        public ICommand SaveFeedItemsCommand
+        public ICommand SaveArticlesCommand
         {
             get { return new DelegateCommand(SaveArticle); }
         }
@@ -155,7 +155,7 @@ namespace RssFeedReader
         /// Gets the delete saved feed item command.
         /// </summary>
         /// <value>The delete saved feed item command.</value>
-        public ICommand DeleteSavedFeedItemCommand
+        public ICommand DeleteSavedArticlesCommand
         {
             get { return new DelegateCommand(DeleteSavedArticle); }
         }

@@ -60,7 +60,7 @@
                             <DataGridTemplateColumn Width="60">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
-                                        <Button Content="Save" Command="{Binding DataContext.SaveFeedItemsCommand, 
+                                        <Button Content="Save" Command="{Binding DataContext.SaveArticlesCommand, 
                                                            RelativeSource=
                                                            {RelativeSource FindAncestor, 
                                                            AncestorType={x:Type DataGrid}}}"  BorderBrush="Black" TextBlock.Foreground="Black"/>
@@ -68,7 +68,6 @@
                                 </DataGridTemplateColumn.CellTemplate>
                             </DataGridTemplateColumn>
                             <DataGridTextColumn Header="Website" Binding="{Binding Website}" Width="180" />
-                            
                             <DataGridTemplateColumn Header="Article" Width="555">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
@@ -119,7 +118,7 @@
                             </DataTemplate>
                         </ListBox.ItemTemplate>
                     </ListBox>
-                    <Button x:Name="BtnDeleteArticles" Command="{Binding DeleteSavedFeedItemCommand}" Margin="10, 10, 10, 0" Grid.Row="3" Content="Delete Article" BorderBrush="Black" Foreground="White" >
+                    <Button x:Name="BtnDeleteArticles" Command="{Binding DeleteSavedArticlesCommand}" Margin="10, 10, 10, 0" Grid.Row="3" Content="Delete Article" BorderBrush="Black" Foreground="White" >
                         <Button.Background>
                             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                                 <GradientStop Color="Black" Offset="1"/>
@@ -147,7 +146,7 @@
                             <KeyBinding Key="Enter" Command="{Binding AddNewFeedCommand}" />
                         </TextBox.InputBindings>
                     </TextBox>
-                    <Button x:Name="BtnAddNew" Command="{Binding AddNewFeedCommand}" Margin="10, 0, 0, 0" Grid.Row="1" Grid.Column="1" Content="Add New Rss" BorderBrush="Black" TextBlock.Foreground="White">
+                    <Button x:Name="BtnAddNew" Command="{Binding AddNewFeedCommand}" Margin="10, 10, 0, 0" Grid.Row="1" Grid.Column="1" Content="Add New Feed" BorderBrush="Black" TextBlock.Foreground="White">
                         <Button.Background>
                             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                                 <GradientStop Color="Black" Offset="1"/>
