@@ -31,13 +31,31 @@ namespace RssFeedReader.Services
             return feeds;
         }
 
-        /// <summary>
-        /// Loads the feed items from file.
-        /// </summary>
-        /// <returns>List&lt;RssFeedItem&gt;.</returns>
-        public List<RssFeedItem> LoadFeedItemsFromFile()
+        ///// <summary>
+        ///// Loads the feed items from file.
+        ///// </summary>
+        ///// <returns>List&lt;RssFeedItem&gt;.</returns>
+        //public List<RssFeedItem> LoadFeedItemsFromFile()
+        //{
+        //    List<RssFeedItem> savedFeedItemsList = null;
+        //    string filename = Settings.Default.SaveFeedItemFileName;
+
+        //    if (File.Exists(filename))
+        //    {
+        //        string json = File.ReadAllText(Settings.Default.SaveFeedItemFileName);
+
+        //        if (json != null)
+        //        {
+        //            savedFeedItemsList = JsonConvert.DeserializeObject<List<RssFeedItem>>(json);
+        //        }
+        //    }
+
+        //    return savedFeedItemsList;
+        //}
+
+        public List<SavedRssFeedItem> LoadFeedItemsFromFile()
         {
-            List<RssFeedItem> savedFeedItemsList = null;
+            List<SavedRssFeedItem> savedFeedItemsList = null;
             string filename = Settings.Default.SaveFeedItemFileName;
 
             if (File.Exists(filename))
@@ -46,7 +64,7 @@ namespace RssFeedReader.Services
 
                 if (json != null)
                 {
-                    savedFeedItemsList = JsonConvert.DeserializeObject<List<RssFeedItem>>(json);
+                    savedFeedItemsList = JsonConvert.DeserializeObject<List<SavedRssFeedItem>>(json);
                 }
             }
 
@@ -68,14 +86,30 @@ namespace RssFeedReader.Services
             }
         }
 
-        /// <summary>
-        /// Saves the feed item to file.
-        /// </summary>
-        /// <param name="rssFeedItem">The RSS feed item.</param>
-        public void SaveFeedItemToFile(RssFeedItem rssFeedItem)
+        ///// <summary>
+        ///// Saves the feed item to file.
+        ///// </summary>
+        ///// <param name="rssFeedItem">The RSS feed item.</param>
+        //public void SaveFeedItemToFile(RssFeedItem rssFeedItem)
+        //{
+        //    File.WriteAllText(Settings.Default
+        //        .SaveFeedItemFileName, JsonConvert.SerializeObject(rssFeedItem, Formatting.Indented));
+        //}
+
+        //public void SaveFeedItemToFile(SavedRssFeedItem rssFeedItem)
+        //{
+        //    File.WriteAllText(Settings.Default
+        //        .SaveFeedItemFileName, JsonConvert.SerializeObject(rssFeedItem, Formatting.Indented));
+        //}
+
+        public void SaveFeedItemListToFile(ObservableCollection<SavedRssFeedItem> savedFeedItemList)
         {
-            File.WriteAllText(Settings.Default
-                .SaveFeedItemFileName, JsonConvert.SerializeObject(rssFeedItem, Formatting.Indented));
+            string json = JsonConvert.SerializeObject(savedFeedItemList, Formatting.Indented);
+
+            if (json != null)
+            {
+                File.WriteAllText(Settings.Default.SaveFeedItemFileName, json);
+            }
         }
     }
 }

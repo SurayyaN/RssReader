@@ -12,7 +12,9 @@ namespace RssFeedReader.Services
         /// loads the feeds from the saved rss list and saved feed items on startup
         /// </summary>
         /// <param name="rssFeedList">The RSS feed list.</param>
-        void Onload(ObservableCollection<RssFeed> rssFeedList, ObservableCollection<RssFeedItem> savedFeedItemsList);
+        //void Onload(ObservableCollection<RssFeed> rssFeedList, ObservableCollection<RssFeedItem> savedFeedItemsList);
+
+        void Onload(ObservableCollection<RssFeed> rssFeedList, ObservableCollection<SavedRssFeedItem> savedFeedItemsList);
 
         /// <summary>
         /// Adds the feed from the feed list into the feed item list.
@@ -41,7 +43,11 @@ namespace RssFeedReader.Services
         /// Saves the feed items.
         /// </summary>
         /// <param name="feedItemsToSave">The feed items to save.</param>
-        void SaveFeedItems(ObservableCollection<RssFeedItem> feedItemsToSave);
+        //void SaveFeedItems(ObservableCollection<RssFeedItem> feedItemsToSave);
+
+        void SaveFeedItems(ObservableCollection<SavedRssFeedItem> savedFeedItemsList, RssFeedItem feedItem);
+
+        void DeleteFeedItems(ObservableCollection<SavedRssFeedItem> savedFeedItemList);
 
     }
 }
