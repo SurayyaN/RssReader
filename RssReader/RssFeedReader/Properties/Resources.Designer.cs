@@ -70,6 +70,15 @@ namespace RssFeedReader.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Article already saved.
+        /// </summary>
+        internal static string ERROR_SAVING_ARTICLE_MESSAGE {
+            get {
+                return ResourceManager.GetString("ERROR_SAVING_ARTICLE_MESSAGE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Alert.
         /// </summary>
         internal static string MESSAGEBOX_ALERT {

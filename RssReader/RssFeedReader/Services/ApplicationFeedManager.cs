@@ -18,7 +18,7 @@ namespace RssFeedReader.Services
     {
         private IFeedManager _feedManager;
         private IFeedItemManager _feedItemManager;
-        private ISavedFeedItemManager _savedFeedItemManager;
+        private ISavedArticlesManager _savedFeedItemManager;
         private ISaveUtility _saveUtility;
 
         /// <summary>
@@ -27,7 +27,7 @@ namespace RssFeedReader.Services
         /// <param name="feedManager">The feed manager.</param>
         /// <param name="feedItemManager">The feed item manager.</param>
         /// <param name="saveUtility">The save utility.</param>
-        public ApplicationFeedManager(IFeedManager feedManager, IFeedItemManager feedItemManager, ISavedFeedItemManager savedFeedItemManager, ISaveUtility saveUtility)
+        public ApplicationFeedManager(IFeedManager feedManager, IFeedItemManager feedItemManager, ISavedArticlesManager savedFeedItemManager, ISaveUtility saveUtility)
         {
             _feedManager = feedManager;
             _feedItemManager = feedItemManager;
@@ -36,11 +36,10 @@ namespace RssFeedReader.Services
         }
 
         /// <summary>
-        /// loads the feeds from the saved rss list and saved feed items on startup
+        /// Onloads the specified RSS feed list.
         /// </summary>
         /// <param name="rssFeedList">The RSS feed list.</param>
-        //public void Onload(ObservableCollection<RssFeed> rssFeedList, ObservableCollection<RssFeedItem> savedFeedItemsList)
-        //public void Onload(ObservableCollection<RssFeed> rssFeedList, ObservableCollection<SavedRssFeedItem> savedFeedItemsList)
+        /// <param name="savedArticlesList">The saved articles list.</param>
         public void Onload(ObservableCollection<RssFeed> rssFeedList, ObservableCollection<SavedArticle> savedArticlesList)
         {
             if (_saveUtility.LoadFromFile() != null)
@@ -55,22 +54,6 @@ namespace RssFeedReader.Services
                     }
                 }
             }
-
-            ////if (_saveUtility.LoadFeedItemsFromFile() != null)
-            ////{
-            ////    foreach (RssFeedItem feedItem in _saveUtility.LoadFeedItemsFromFile())
-            ////    {
-            ////        savedFeedItemsList.Add(feedItem);
-            ////    }
-            ////}
-
-            //if (_saveUtility.LoadFeedItemsFromFile() != null)
-            //{
-            //    foreach (SavedRssFeedItem savedItem in savedFeedItemsList)
-            //    {
-            //        savedFeedItemsList.Add(savedItem);
-            //    }
-            //}
 
             if (_saveUtility.LoadArticlesFromFile() != null)
             {
@@ -142,50 +125,19 @@ namespace RssFeedReader.Services
         }
 
         /// <summary>
-        /// Saves the feed items.
+        /// Saves the articles.
         /// </summary>
-        /// <param name="feedItemsToSave">The feed items to save.</param>
-        //public void SaveFeedItems(ObservableCollection<RssFeedItem> feedItemsToSave)
-        //{
-        //    foreach (RssFeedItem feedItem in feedItemsToSave)
-        //    {
-        //        _saveUtility.SaveFeedItemToFile(feedItem);
-        //    }
-        //    //_saveUtility.SaveFeedItemToFile(feedItemsToSave);
-        //}
-
-        //public void SaveFeedItems(ObservableCollection<SavedRssFeedItem> savedFeedItemsList, RssFeedItem feedItem)
-        //{
-        //    _savedFeedItemManager.AddFeedItem(savedFeedItemsList, feedItem);
-        //}
-
+        /// <param name="savedArticleList">The saved article list.</param>
+        /// <param name="feedItem">The feed item.</param>
         public void SaveArticles(ObservableCollection<SavedArticle> savedArticleList, RssFeedItem feedItem)
         {
             _savedFeedItemManager.AddArticle(savedArticleList, feedItem);
         }
 
-        //public void AddSavedFeedItem(ObservableCollection<SavedRssFeedItem> savedFeedItemsList, SavedRssFeedItem feedItem)
-        //{
-        //    _savedFeedItemManager.AddFeed(savedFeedItemsList, feedItem);
-        //}
-
-        //public void DeleteFeedItems(ObservableCollection<SavedRssFeedItem> savedFeedItemList)
-        //{
-        //    List<SavedRssFeedItem> itemsToBeDeleted = new List<SavedRssFeedItem>();
-
-        //    foreach (SavedRssFeedItem item in savedFeedItemList.Where(c => c.IsChecked))
-        //    {
-        //        itemsToBeDeleted.Add(item);
-        //    }
-
-        //    foreach (SavedRssFeedItem item in itemsToBeDeleted)
-        //    {
-        //        _savedFeedItemManager.RemoveSavedFeedItem(savedFeedItemList, item);
-        //    }
-
-        //    _saveUtility.SaveFeedItemListToFile(savedFeedItemList);
-        //}
-
+        /// <summary>
+        /// Deletes the articles.
+        /// </summary>
+        /// <param name="savedArticleList">The saved article list.</param>
         public void DeleteArticles(ObservableCollection<SavedArticle> savedArticleList)
         {
             List<SavedArticle> articlesToBeDeleted = new List<SavedArticle>();

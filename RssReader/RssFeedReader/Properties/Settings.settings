@@ -5,7 +5,7 @@
     <Setting Name="SaveFileName" Type="System.String" Scope="User">
       <Value Profile="(Default)">c:\RSS Feeds.json</Value>
     </Setting>
-    <Setting Name="SaveFeedItemFileName" Type="System.String" Scope="User">
+    <Setting Name="SaveArticleFileName" Type="System.String" Scope="User">
       <Value Profile="(Default)">c:\Rss Feed Items.json</Value>
     </Setting>
   </Settings>
